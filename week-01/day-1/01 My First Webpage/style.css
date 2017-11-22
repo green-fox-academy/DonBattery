@@ -1,0 +1,51 @@
+/* header{
+    background: black;
+    text-align: right;
+}
+nav{
+    padding: 30px;
+    display: inline; */
+    
+body{    
+    font-family: 'Indie Flower', cursive;
+    background-image: url("topography.png");
+}
+
+nav{
+    text-align: right;
+    background: #333333;
+    padding: 16px;
+    /*color: magenta; */
+}
+
+a{
+    font-family: 'Vollkorn+SC', serif;
+    color: magenta;
+    padding-left: 20px;
+}
+
+.logo{
+    height: 50px;
+    width: 50px;
+    padding-top: 2px;
+    padding-left: 10%;
+    float: left;
+}
+
+.cikk{
+    padding-left: 10%;
+    padding-right: 10%;
+    font-size: 25px;
+}
+
+h1{
+    font-size: 65px;
+}
+h2{
+    color: magenta;
+}
+
+h3{
+    font-size: 40px;
+    text-align: center;
+}
