@@ -6,17 +6,23 @@
 body{
     background-color: rgb(255, 255, 255);
 }
-article{
-    display: flex;
+
+p{
+    display: inline-block;
     color: white;
     background-color: purple;
     border-radius: 50%;
 	width: 200px;
     height: 200px; 
-    display: inline-block;
+    line-height: 200px;
     position: relative;
     font-family: 'Times New Roman', Times, serif;
     font-size: 30px;
+    margin-top: 5px;
     text-align: center;
-    vertical-align: middle;
+}
+
+main{
+    display: block;
+    align-self: center;
 }
