@@ -1,0 +1,32 @@
+*{
+    padding: 0;
+    border: 0;
+    margin: 0;    
+}
+body{
+    background-color: #4285f4;
+}
+p{
+    color:white; 
+    font-family: 'Spectral SC', serif;
+    font-size: 35px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 100px;
+    width: 350px;
+    height: 100px;
+    margin: auto;
+}
+p:nth-child(1){
+    margin-top: 20px;
+    background-color:#e67676; 
+}
+p:nth-child(2){
+    background-color: #f2f062;
+}
+p:nth-child(3){
+    background-color: #a9e6e6;
+}
+p:nth-child(4){
+    background-color: #7692e4;
+}
