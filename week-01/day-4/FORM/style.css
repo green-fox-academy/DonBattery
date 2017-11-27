@@ -1,0 +1,78 @@
+*{
+    padding: 0;
+    border: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: rgb(221, 221, 221);
+}
+
+div{
+    font-size: 30px;
+    color: rgb(11, 11, 24);
+}/* 
+div:nth-of-type(1){
+    float: left;
+} */
+
+main > div:nth-child(1){
+    background-color: rgb(131, 136, 131);
+    height: 37px;
+    width: 80%;
+    margin: auto;
+}
+main > div:nth-child(2) {    
+    display: inline-block;
+    background-color: rgb(131, 136, 131);
+    height: 350px;
+    width: 40%;
+    margin-left: 10%;
+}
+main > div:nth-child(3){
+    display: inline-block;
+    background-color: rgb(131, 136, 131);
+    height: 350px;
+    width: 40%;
+}
+main > div:nth-child(4){
+    background-color: rgb(131, 136, 131);
+    height: 200px;
+    width: 80%;
+    margin: auto;
+}
+
+div > p {
+    font-size: 20px;
+}
+
+/* BOX1 */
+div:nth-child(1) > p:nth-child(1){
+    position: relative;
+    top: 10px;
+    left: 10px;
+    color: red;
+}
+
+/* BOX2 */
+div:nth-child(2) > p:nth-child(1){
+    position: relative;
+    top: 10px;
+    left: 10px;
+    color: red;
+    text-align: left;
+}
+div:nth-child(2) > form{
+    position: relative;
+    top: 40px;
+    left: 10px;
+}
+
+/* BOX3 */
+div:nth-child(2) > p:nth-child(1){
+    position: relative;
+    top: 10px;
+    left: 10px;
+    color: red;
+}
