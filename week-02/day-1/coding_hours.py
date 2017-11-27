@@ -7,3 +7,10 @@
 # Print the percentage of the coding hours in the semester if the average
 # work hours weekly is 52
 
+codinghours = 17 * 5 * 6
+
+print("Coding hours of a Green Fox "+str(codinghours))
+
+codingpercent = codinghours / ((17 * 52) / 100) 
+
+print("Percentage of coding hours relative to working hours "+str(codingpercent))
