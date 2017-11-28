@@ -10,6 +10,7 @@ def swap(i1=0, i2=0):
 
 print('Before')
 print(aj)
+print()
 
 if mid > 0:
     for i in range(mid):
