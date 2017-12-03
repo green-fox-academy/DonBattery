@@ -40,6 +40,7 @@ def clear_screen():
 
 # Drow out the grid
 def draw(grid):
+    clear_screen()
     print('\n')
     print('¸,ø¤°º¤ø,¸¸,ø¤º°`°º¤ø,¸- =M i n e S w e e p e R= -¸,ø¤º°`°º¤ø,¸,ø¤°º¤ø,¸¸')
     print('        ¸,ø¤°º¤ø,¸. o O', end ='')
@@ -79,7 +80,7 @@ def discover(grid, x_cord, y_cord):
                     if grid[x_cord + x_check][y_cord + y_check]['number'] == 0:
                         discover(grid, x_cord + x_check, y_cord + y_check)
 
-# Check a cordinate given by the player. Returns true if player stepped on mine. Starts to discover if player stepped on zero
+# Check a coordinate given by the player. Returns true if player stepped on mine. Starts to discover if player stepped on zero
 def check(grid, x_cord, y_cord):    
     grid[x_cord][y_cord]['isChecked'] = True
     if grid[x_cord][y_cord]['isMine']:
@@ -95,20 +96,31 @@ def get_row_and_col(grid):
     x_cord, y_cord = int(x_cord) - 1, int(y_cord) - 1    
     return x_cord, y_cord
 
-# Initialize everything and enter into the main game loop
-def start_game():
+# Check if the player has won the game
+def won_situation(grid):
+    already_checked = 0
+    for x_cord in range(SIZE):
+        for y_cord in range (SIZE):
+            if grid[x_cord][y_cord]['isChecked']:
+                already_checked += 1
+    return already_checked == SIZE ** 2 - MINES
+
+# Initialize everything and enter into the main game loop (which end on won or lost condition)
+def start_game(): 
     grid = init_map(SIZE)
     init_mines(grid, MINES)
     init_numbers(grid)
-    clear_screen()
-    draw(grid)
     is_live = True
-    while is_live:
-      x_cord, y_cord = get_row_and_col(grid)
-      if check(grid, x_cord, y_cord):
-        is_live = False
-      clear_screen()
-      draw(grid)
-    print('Game Over!')
+    won = False
+    draw(grid)
+    while is_live and not won:
+        x_cord, y_cord = get_row_and_col(grid)
+        is_live = not check(grid, x_cord, y_cord)
+        won = won_situation(grid)
+        draw(grid)
+    if won:
+        print('You are a winner!')
+    else:
+        print('You just lost The Game!')
 
 start_game()
