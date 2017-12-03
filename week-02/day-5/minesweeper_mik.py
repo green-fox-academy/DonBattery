@@ -89,12 +89,18 @@ def check(grid, x_cord, y_cord):
         discover(grid, x_cord, y_cord)
     return False
 
-# Get player input (needs finetuning)
-def get_row_and_col(grid):
-    input_string = input(' ' * Indention + 'Which field to check ? (X Y) 1 - ' + str(SIZE) + ' : ')    
-    x_cord, y_cord = input_string.split()
-    x_cord, y_cord = int(x_cord) - 1, int(y_cord) - 1    
-    return x_cord, y_cord
+# Get player input
+def get_xy_cord():
+    correct = False
+    while not correct:
+        Sinput = input(' ' * Indention + 'Which field to check ? (X Y) 1 - ' + str(SIZE) + ' : ')
+        if len(Sinput) >=3 and Sinput.count(' ') == 1 and Sinput.find(' ') != 0 and Sinput.find(' ') != len(Sinput) - 1:
+            x_cord, y_cord = Sinput.split()
+            if x_cord.isnumeric() and y_cord.isnumeric():
+                x_cord, y_cord = int(x_cord), int(y_cord)
+                if 0 < x_cord <= SIZE and 0 < y_cord <= SIZE:
+                    correct = True
+    return x_cord - 1, y_cord - 1
 
 # Check if the player has won the game
 def won_situation(grid):
@@ -114,7 +120,7 @@ def start_game():
     won = False
     draw(grid)
     while is_live and not won:
-        x_cord, y_cord = get_row_and_col(grid)
+        x_cord, y_cord = get_xy_cord()
         is_live = not check(grid, x_cord, y_cord)
         won = won_situation(grid)
         draw(grid)
