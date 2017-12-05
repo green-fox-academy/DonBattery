@@ -12,4 +12,7 @@ def copier(Path1, Path2):
         return False
     return True
 
-copier(r'''C:\Users\Miki\greenfox\DonBattery\week-03\day-2\my-file.txt''',r'''C:\Users\Miki\greenfox\DonBattery\week-03\day-2\my-file2.txt''')
+if copier(r'''C:\Users\Miki\greenfox\DonBattery\week-03\day-2\my-file.txt''',r'''C:\Users\Miki\greenfox\DonBattery\week-03\day-2\my-file2.txt'''):
+    print('Copied successfully')
+else:
+    print('error')
