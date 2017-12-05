@@ -6,3 +6,14 @@
 # So if the word is "apple" and the number is 5, than it should write 5 lines
 # to the file and each line should be "apple"
 # The function should not raise any error if it could not write the file.
+
+
+def writer(_Path, _Word, _Number):
+    try:
+        with open(_Path,'w') as _File:
+            for i in range(_Number):
+                _File.write(_Word)
+    except IOError:
+        return -1
+
+writer(r'''C:\Users\Miki\greenfox\DonBattery\week-03\day-2\my-file.txt''','Sajt\n',99)
