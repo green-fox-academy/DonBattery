@@ -21,6 +21,7 @@ max_x = int(canvas['width'])
 max_y = int(canvas['height'])
 
 canvas['bg'] = rgbhex(0,0,60)
+
 def star(relx, rely, dim, moon = False):
     step = randint(2,15)   
     for i in range(step, 1, -1):
@@ -36,6 +37,17 @@ def star(relx, rely, dim, moon = False):
     if moon:
         canvas.create_oval(relx - randint(15, 20), rely - randint(15, 20),  relx + randint(15, 20), rely + randint(15, 20), outline = "", fill = rgbhex(233,233,0))
         canvas.create_oval(relx, rely - randint(20, 25),  relx + randint(25, 30), rely + randint(5, 10), outline = "", fill = rgbhex(233,233,233))
+
+def star2(centx, centy, size, moon = False):
+    step = randint(10, 30)
+    half = size // 2
+    for i in range(0, step):
+        diff = randint(1,5)
+        for j in range(10):
+            ext = j * 36
+            canvas.create_arc(centx - half - diff, centy - half - diff, centx + half + diff, centy + half + diff, start = ext, extent = ext + randint(30,40), width = randint(1,3), outline = rgbhex(randint(220, 255), randint(220, 255), randint(220, 255)), fill = '', style = ARC)
+            canvas.create_rectangle(centx - half - diff, centy - half - diff, centx + half + diff, centy + half + diff, outline = "", fill = rgbhex(randint(5,20),randint(10,25),randint(10,25)))
+            half -= randint(1, 3)
 
 def bush(topx, topy, maxw, complexity):
     h = max_y - topy
@@ -78,8 +90,9 @@ for i in range(50):
     arc(randint(0, max_x - 10), randint(0, max_y // 5 * 3), randint(10,15), randint(10,15), randint(33,188), 'white')
 
 #stars
-for i in range(12):
-    star(randint(5,max_x - max_x // 11), randint(5, max_y - max_y // 11 * 5), randint(11, 35), False)
+for i in range(1):
+    #star(randint(5,max_x - max_x // 11), randint(5, max_y - max_y // 11 * 5), randint(11, 35), False)
+    star2(randint(5, max_x - 5), randint(5, max_y // 7 * 4), randint(5,15), False)
 
 #moon
 star(randint(max_x - max_x // 5 - 5, max_x - max_x // 5 -5), randint(5, max_y // 5), randint(65, 75), True)
