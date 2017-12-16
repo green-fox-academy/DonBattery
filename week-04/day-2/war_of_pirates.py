@@ -7,6 +7,7 @@ pirate2 = Pirate('Jack Sparrow')
 
 parrot1 = Parrot('Gyurrika', 'red')
 
+
 for i in range(5):
     print(pirate1.drink_some_rum())
     print(pirate1.hows_it_going_mate())

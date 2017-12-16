@@ -1,0 +1,29 @@
+{
+  "exercises": {
+    "center_box_function.py": "",
+    "centered_square.py": "",
+    "checkerboard.py": "",
+    "colored_box.py": "",
+    "connect_the_dots.py": "",
+    "diagonals.py": "",
+    "envelope_star.py": "",
+    "four_rectangles.py": "",
+    "function_to_center.py": "",
+    "go_to_center.py": "",
+    "horizontal_lines.py": "",
+    "line_in_the_middle.py": "",
+    "line_play.py": "",
+    "line_play_quarters.py": "",
+    "position_square.py": "",
+    "purple_steps.py": "",
+    "purple_steps_3d.py": "",
+    "rainbow_box_function.py": "",
+    "starry_night.py": "",
+    "super_hexagon.py": "",
+    "triangles.py": ""
+  },
+  "lang": "python",
+  "repo": "teaching-materials",
+  "workshop-path": "workshop/drawing",
+  "workshop-url": "https://github.com/greenfox-academy/teaching-materials/blob/master/workshop/drawing/python.md"
+}

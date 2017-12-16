@@ -90,9 +90,9 @@ for i in range(50):
     arc(randint(0, max_x - 10), randint(0, max_y // 5 * 3), randint(10,15), randint(10,15), randint(33,188), 'white')
 
 #stars
-for i in range(1):
-    #star(randint(5,max_x - max_x // 11), randint(5, max_y - max_y // 11 * 5), randint(11, 35), False)
-    star2(randint(5, max_x - 5), randint(5, max_y // 7 * 4), randint(5,15), False)
+for i in range(9):
+    star(randint(5,max_x - max_x // 11), randint(5, max_y - max_y // 11 * 5), randint(11, 35), False)
+    #star2(randint(5, max_x - 5), randint(5, max_y // 7 * 4), randint(5,15), False)
 
 #moon
 star(randint(max_x - max_x // 5 - 5, max_x - max_x // 5 -5), randint(5, max_y // 5), randint(65, 75), True)

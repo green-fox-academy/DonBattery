@@ -5,7 +5,7 @@ test_CNB = CNB()
 
 class MinTest(unittest.TestCase):
     def test_init(self):
-        self.assertEqual(test_CNB.present, False)
+        self.assertEqual(test_CNB.present, True)
     
     #def test_empty_list(self):
      #   self.assertEqual(summer([]), 0)

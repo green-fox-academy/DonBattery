@@ -1,3 +1,4 @@
+from time import sleep
 # This class will deal with the todo.dat file also manage the virtual list (vList)
 class Lister():
 
@@ -56,12 +57,11 @@ class Lister():
     # build the virtual list
     def buildVlist(self):
         with open(self.filePath, 'r+') as fFile:
-            rawlist = fFile.readlines()
+            rawlist = fFile.readline()
+        rawlist = rawlist.split(';')
+        print(rawlist)
         for i in range(len(rawlist)):
-            if i == len(rawlist) - 1:
-                taskString = rawlist[i][3:] # last line does not need to be trimmed
-            else:
-                taskString = rawlist[i][3:-1] # Cut the newline char from the end of lines
+            taskString = rawlist[i][3:]
             self.vList.append({'pos' : i + 1, 'todo' : True, 'text' : taskString})
             if rawlist[i][0:3] == '[X]':
                 self.vList[i + 1]['todo'] = False
@@ -69,27 +69,35 @@ class Lister():
     # re-index the virtual list according to the items actual position on the list (needed after removal)
     def reindexVlist(self):
         for i in range(len(self.vList)):
-            self.vList['pos'] = i
+            self.vList[i]['pos'] = i
 
     # removes n item (by index found in indexlist) from the virtual list and calls reindex on it
     def remover(self, indexlist):
         tempList = []
-        indexlist = list(set(indexlist)) # no funny duplications pls...       
+        indexlist = list(set(indexlist)) # no funny duplications pls...
+        for i in range(len(indexlist)):
+
+
+
+
+
+
         for i in range(len(self.vList)):
             copied = False
             for j in range(len(indexlist)):
                 if 0 < indexlist[j] < len(self.vList): # do not remove the 0th element, and do not go out index plox
-                    if indexlist[j] != self.vList[i]['pos'] and not copied:
+                    if indexlist[j] != i and not copied:
                         tempList.append(self.vList[i])
                         copied = True
-        self.vList = tempList
-        self.reindexVlist
+        self.vList = tempList[:]
+        self.reindexVlist()
 
     def completer(self, indexlist):
         for i in range(len(self.vList)):
             for j in range(len(indexlist)):
                 if 0 < indexlist[j] < len(self.vList):
-                    self.vList[i]['todo'] = False
+                    if indexlist[j] == i:
+                        self.vList[i]['todo'] = False
 
     # append the virtual list with given string (fine tuning needed for special characters)
     def appender(self, sString):
@@ -106,17 +114,20 @@ class Lister():
     
     # write the virtual list to the file defined by self.filePath
     def writer(self):
+        line = ''
         if len(self.vList) > 0:
             with open(self.filePath, 'w+') as fFile:
                 for i in range(1, len(self.vList)):
-                    symbol = ''
                     if self.vList[i]['todo'] == True:
-                        symbol += '[ ]'
+                        symbol = '[ ]'
                     else:
-                        symbol += '[X]'
-                    symbol += self.vList[i]['text'] + "\n"
-                    fFile.write(symbol)
-
+                        symbol = '[X]'
+                    symbol += self.vList[i]['text']
+                    if i < len(self.vList) - 1:
+                        symbol += ';'
+                    line += symbol
+                fFile.write(line)
+                
 # as i was too lazy i have merged the controller and the arg-compiler into one class...
 # let me introduce you to the mighty todoer
 class Todoer():
@@ -131,7 +142,14 @@ class Todoer():
 
     # given 0 compilable (to actual commands) arguments todoer will print out usage
     def printusage(self):
-        print("\nUsage:\n-l   Lists all the tasks\n-a   Adds a new task\n-r   Removes a task\n-c   Completes a task")
+        print("\nMiki's TO-DO App\n")  
+        print("Usage:")
+        print("-l  Lists all the tasks")
+        print("-lo Ordered list")
+        print("-a <task>  Adds a new task")
+        print("-r <index>  Removes a task (works on multiple index)")
+        print("-c <index>  Completes a task (works on multiple index)")
+        print("-by  Print out Credits")
 
     # True if given string is a command    
     def iscommand(self, sString):
@@ -199,7 +217,6 @@ class Todoer():
     
     # compile sys.argv into actual commands then execute them step by step
     def doit(self, arglist):
-        print("\nMiki's TO-DO App\n")  
         commands = self.compile_args(arglist)
         if len(commands) == 0:
             self.printusage()
