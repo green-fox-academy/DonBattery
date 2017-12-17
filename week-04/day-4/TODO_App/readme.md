@@ -1,6 +1,6 @@
 Hi!
 
-**This is Miki's TODO app
+**This is Miki's TODO app**
 
 The mechanism is the usual: 
 
