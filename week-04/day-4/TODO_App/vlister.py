@@ -4,6 +4,12 @@ class Virtual_List_Controller():
 
     def __init__(self, raw_text, separator, character_blacklist):
 
+        # right now it is dessigned to get a string and separate it to lines 
+        # excluding the blacklisted characters
+        # add a [ ] to the begining of every new line
+        # and change the [ ] tag to the [X] tag by index
+        # also multiple elements can be removed by index
+
         self.character_blacklist = character_blacklist
 
         self.v_list = raw_text.split(separator)
@@ -42,7 +48,7 @@ class Virtual_List_Controller():
                         symbol = '[X]'
                         self.v_list[i] = symbol + temp_string
 
-    # turn v_list into a one-liner 
+    # turn v_list into a one-liner using the separator
     def get_one_line(self):
         temp_string = ''        
         for i in range(len(self.v_list)):

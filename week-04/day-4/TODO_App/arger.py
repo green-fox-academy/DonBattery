@@ -5,48 +5,49 @@ class Argument_Compiler():
 
     def __init__(self, arg_list, allowed_commands):
 
+        # list of arguments
         self.arg_list = arg_list
 
+        # list of dictionaries containing allowed commands by operator and type 
         self.allowed_commands = allowed_commands
 
+        # this will contain the commands translated from arguments
         self.command_list = []        
 
+        # list of allowed operators, to compare with each argument
         self.actual_commands = []
 
         for command in self.allowed_commands:
             self.actual_commands.append(command['operator'])
-        # about the allowed_commands: by dessig these are dictionaries inside a tupple
-        # containing the operator and type of arguments we need to look for in arg_list
-
-        self.compile_args()
-        
+       
+       # upon init Argument_Compiler do its work, get_commands() will return the translated commands
+        self.compile_args()        
 
     # seek string parts between two actual command (or end of arg_list) 
     # and return them chained together (separated by spaces and stripped at the end)
     def get_string_chain(self, index):
-        temp_string = ''
+        string_chain = ''
         ended = False
         while index < len(self.arg_list) and not ended:
-            if not self.is_command(self.arg_list[index]):
-                temp_string += self.arg_list[index] + ' '
-            else:
+            if self.is_command(self.arg_list[index]):
                 ended = True
+            else:
+                string_chain += self.arg_list[index] + ' '
             index += 1                    
-        return temp_string.strip()
+        return string_chain.strip()
     
     # return numeric items as a list, found in between two arg-command (or end of list)
     def get_num_list(self, index):
-        temp_list = []
+        num_list = []
         ended = False
         while index < len(self.arg_list) and not ended:
-            if not self.is_command(self.arg_list[index]):
-                if self.arg_list[index].isdigit():
-                    #if float(self.arg_list[index]).is_integer:
-                    temp_list.append(int(self.arg_list[index]))
-            else:
+            if self.is_command(self.arg_list[index]):
                 ended = True
+            else:
+                if self.arg_list[index].isdigit():
+                    num_list.append(int(self.arg_list[index]))
             index += 1
-        return temp_list
+        return num_list
     
     # returns an allowed command's type based on its operator
     def get_command_type(self, arg):
@@ -69,7 +70,7 @@ class Argument_Compiler():
     def no_commands(self):
         return len(self.command_list) == 0
 
-    # returns a list of commands compared from an argument-list
+    # returns a list of commands translated from an argument-list
     def compile_args(self):
         self.reset_command_list()
         for i in range(len(self.arg_list)):

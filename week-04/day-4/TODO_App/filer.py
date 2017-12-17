@@ -1,7 +1,5 @@
-# -*- coding: utf-8 -*-
-import sys
-
-# This class controls a single file. Can test it for permission, read, write and epmtynes. Also able to create it.
+# This class controls a single file. 
+# Can test it for permission, read, write and epmtynes. Also able to create it.
 class File_Controller():
 
     def __init__(self, file_path, file_name):
@@ -10,30 +8,35 @@ class File_Controller():
         
         # (file_path checker needs to be implemented !!!! because we are currently assuming it is correct)       
 
+        # the working directory
         self.file_path = file_path
 
+        # filename
         self.file_name = file_name
 
+        # sum of the two above
         self.true_path = file_path + file_name 
 
+        # readlines
         self.file_as_lines = []
 
+        # !!!!!! ALL the errors will be contained here !!!!
+        # get_errors() will return this list
         self.error_log = []
-
-        self.file_stat = {'present' : False, 'empty' : True, 'read' : False, 'write' : False}
         
         # after running the test_file() method, the file_stat dictionary will be populated with essential info on the file
-        # present will be True if the file is already created or it can be created
-        # empty will be True if the file doesnt have any todo registerted
+        # present will be True if the file is already created or it has been created
+        # empty will be True if the file does not have any content
         # read will be True if the file can be opened for read
         # write will be True if the file can be opened for write            
+        self.file_stat = {'present' : False, 'empty' : True, 'read' : False, 'write' : False}
 
     
     # this will try to create the file (and set file_stat(s) accordingly) and appends the error_log if exception occures
     def create_file(self):
         succes = False
         try:
-            with open(self.true_path, 'w+') as f_file:
+            with open(self.true_path, 'w+') as sanyika:
                 self.file_stat['present'] = True
                 self.file_stat['empty'] = True
                 self.file_stat['read'] = True
@@ -76,7 +79,6 @@ class File_Controller():
     # warning right now this overwrites the whole file!
     def one_line_writer(self, line):
         succes = False
-        #print(line)
         try:
             with open(self.true_path, 'w+', encoding="utf8") as f_file:
                 f_file.write(str(line))
