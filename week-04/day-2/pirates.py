@@ -85,3 +85,31 @@ class Pirate(Being):
                 return "nobrawl"
         else:
             return "is dead"
+
+class Captain(Pirate):
+
+    def __init__(self, name):
+        Pirate.__init__(self, name)
+
+class PirateShip():
+
+    def __init__(self, name, cannons = 0, rumstock = 0, Captain = None,  crew = None):        
+        self.name = name
+        self.cannons = cannons
+        self.rumstock = rumstock
+        self.captain = captain
+        self.crew = crew
+    
+    def add_captain(self, Captain):
+
+    def add_crewmember(self, Pirate):
+    
+    def fightship(self, PirateShip):
+
+    
+
+class Armada():
+
+    def __init__(self, name, ships = None):
+        self.name = name
+        self.ships = ships

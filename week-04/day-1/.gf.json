@@ -1,0 +1,11 @@
+{
+  "exercises": {
+    "fleet.py": "",
+    "fleet_of_things.py": "",
+    "thing.py": ""
+  },
+  "lang": "python",
+  "repo": "teaching-materials",
+  "workshop-path": "workshop/oo/fleet-of-things",
+  "workshop-url": "https://github.com/greenfox-academy/teaching-materials/tree/master/workshop/oo/fleet-of-things/python"
+}
