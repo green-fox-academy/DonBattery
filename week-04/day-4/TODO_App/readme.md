@@ -6,11 +6,11 @@ The mechanism is the usual:
 
 you can list the tasks with -l
 
-add new task with -a
+add new task with -a <task>
 
-change task to checked wirh -c
+change task to checked with -c <index>
 
-and remove task with -r
+and remove task with -r <index>
 
 However you can simply type "todo -a Sajt" to add Sajt to your task-list as a handy batch-file is present
 
