@@ -4,6 +4,8 @@ from sys import exit
 from random import randint
 import time
 
+
+    
 imgPath = "GrafX/"
 
 sprite_size = 34
@@ -71,13 +73,13 @@ pygame.init()
 
 pygame.mixer.music.load('doom1.mid')
 
-pygame.mixer.music.play(-1)
+pygame.mixer.music.play()
 
 pygame.display.set_caption("RPGame")
 
 screen_w, screen_h = 320, 200
 
-screen = pygame.display.set_mode((screen_w, screen_h), pygame.FULLSCREEN)
+screen = pygame.display.set_mode((screen_w, screen_h)) # , pygame.FULLSCREEN
 
 player1 = Unit(screen, 'rocky01.png', 0.15)
 
