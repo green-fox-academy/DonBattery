@@ -60,8 +60,6 @@ class Unit():
 
     def do_anim(self, till = 0):
         self.time_now = time.time()
-        print('NOW :', self.time_now)
-        print('NEXT', self.next_time)
         if  self.time_now > self.next_time:
             self.next_time = time.time() + self.anim_time
             if self.animcount < till:
@@ -80,8 +78,8 @@ pygame.display.set_caption("RPGame")
 screen_w, screen_h = 320, 200
 
 screen = pygame.display.set_mode((screen_w, screen_h)) # , pygame.FULLSCREEN
-
-player1 = Unit(screen, 'rocky01.png', 0.15)
+#print(screen.get_alpha())
+player1 = Unit(screen, 'rocky04.png', 0.15)
 
 FPS = 160
 
@@ -103,6 +101,11 @@ score1 = font.render("WHERE IS YOUR GOD NOW ???", True,(255,255,255))
 # Turn off mouse
 pygame.mouse.set_pos(screen_w,screen_h)
 pygame.mouse.set_visible(False)
+
+# Test rekt
+rekt = pygame.Surface((37,37))
+rekt.fill((123,44,200))
+rekt.convert_alpha()
 
 # main loop
 while True:
@@ -144,7 +147,10 @@ while True:
         player1.pos[1] += player1_vy
 
     screen.blit(background,(0,0))
-
+    screen.blit(rekt, (100, 100))
+    print('Back :', screen.get_alpha())
+    print('Screen :', screen.get_alpha())
+    print('Player :', player1.images.get_alpha())
     if player1_vx == 0 and player1_vy == -1:
         player1.direction = 'N'
     if player1_vx == 1 and player1_vy == -1:
@@ -167,6 +173,7 @@ while True:
     player1.render()
 
     screen.blit(score1,(0,0)) 
-    
+    print(player1.images.get_alpha())
+    print()
     pygame.display.update()
 

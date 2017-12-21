@@ -1,5 +1,6 @@
 # Drawer
 
+import CharactR
 import pygame
 from pygame.locals import *
 
@@ -26,3 +27,17 @@ class Window():
         pygame.display.set_caption(self.title)
 
         self.screen = pygame.display.set_mode((self.width, self.height), self.mode)
+        self.background = pygame.Surface((self.width, self.height))
+        self.background.convert_alpha()
+        self.background.fill((200, 200, 0))
+
+    def draw_background(self):
+        self.screen.blit(self.background, (0, 0))
+
+    def move_all(self, unitlist):
+        for unit in unitlist:
+            unit.move()
+    
+    def blit_all(self, unitlist):
+        for unit in unitlist:
+            self.screen.blit(unit.anim, (unit.x_pos, unit.y_pos))
