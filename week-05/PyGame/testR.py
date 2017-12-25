@@ -24,11 +24,13 @@ grafx_dir = main_dir + "\\GrafX\\"
 
 soundfx_dir = main_dir + "\\SoundFX\\"
 
+lvl_dir = main_dir + "\\LevelZ\\"
+
 print(grafx_dir)
 
 print(soundfx_dir)
 
-root = DrawR.Window(320,240,'', mode = 'F')
+root = DrawR.Window(640, 480, '', mode = 'F')
 
 # Player 1
 controls1 = [K_DOWN, K_LEFT, K_UP, K_RIGHT]
@@ -72,15 +74,22 @@ def main():
     icon = ImagR.load_image(grafx_dir, 'icon.png')
     pygame.display.set_icon(icon)
     pygame.mouse.set_visible(0)
+
+    map1 = MappR.Map(lvl_dir, 'test_level.lvl', 'F')
+
+    root.draw_level(map1)
+
     root.draw_background()
 
-    while True:
+    game_on = True
+
+    while game_on:
 
         clock.tick(FPS)
 
         for event in pygame.event.get():
             if event.type == QUIT or (event.type == KEYDOWN and event.key == K_ESCAPE):
-                sys.exit()
+                game_on = False
             
             if event.type == KEYDOWN:
                 for unit in all_unit:
@@ -117,6 +126,11 @@ def main():
         root.blit_all(all_unit)
 
         pygame.display.update()
+
+    pygame.quit()
+
+    print('\nThank you for playing Coon Runner')
+    print('May the Coons be with you')
 
 if __name__ == '__main__': 
     main()

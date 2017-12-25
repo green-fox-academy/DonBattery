@@ -7,12 +7,15 @@ from pygame.locals import *
 
 sprite_size = 34
 
-scale = 1
-
+# This class represents a character in the game; a player or an enemy
+# It has pixel position, speed, and a collection of pictures for each animation frame
+# Also it contains a rectangular area to check collosion
 class Character():
 
     def __init__(self, imagepath, imagename):
+
         image = ImagR.load_image(imagepath, imagename, 'A')
+
         self.images = []
         self.direction = 'S'              
         self.anim_count = 0
@@ -20,29 +23,29 @@ class Character():
         self.x_pos = 0
         self.y_pos = 0
         self.x_speed = 0
-        self.y_speed = 0
+        self.y_speed = 0        
+        self.foot_rect = pygame.Rect(0,0,30,10)
         self.anim = pygame.Surface((sprite_size, sprite_size)).convert_alpha()
+
         for y in range(5):
             for x in range(5):
                 surf = pygame.Surface((sprite_size, sprite_size)).convert_alpha()         
                 surf.fill((0,0,0,0))
-                surf.blit(image, (0, 0), (x * sprite_size, y * sprite_size, sprite_size, sprite_size), BLEND_RGBA_ADD)
-                #if scale != 1:
-                #    pygame.transform.scale(surf, (sprite_size, sprite_size), surf)
-                self.images.append(surf)
+                surf.blit(image, (0, 0), (x * sprite_size, y * sprite_size, sprite_size, sprite_size))
+                self.images.append(surf)        
         for i in range(3):
             for x in range(5):           
                 surf = pygame.Surface((sprite_size, sprite_size)).convert_alpha()
                 surf.fill((0,0,0,0))
-                surf.blit(image, (0, 0), (x * sprite_size, (3 - i) * sprite_size, sprite_size, sprite_size), BLEND_RGBA_ADD)
+                surf.blit(image, (0, 0), (x * sprite_size, (3 - i) * sprite_size, sprite_size, sprite_size))
                 surf = pygame.transform.flip(surf, True, False)
-                #if scale != 1:
-                #    pygame.transform.scale(surf, (sprite_size, sprite_size), surf)
                 self.images.append(surf)
         self.anim = self.get_image()
 
+    # returns the correct self-image based on direction and anim_counter
     def get_image(self):
         
+        # if sirection is 'S'
         off = 0
 
         if self.direction == 'SW':
@@ -59,10 +62,13 @@ class Character():
             off = 30
         elif self.direction == 'SE':
             off = 35
+
         if self.x_speed == 0 and self.y_speed == 0:
             self.anim_count = 0
+    
         return self.images[off + self.anim_count]
     
+    # returns the character direction, based on its speed
     def get_direction(self):
         if self.x_speed == 0 and self.y_speed == 1:
             return 'S'
@@ -87,7 +93,7 @@ class Character():
         self.x_pos += self.x_speed
         self.y_pos += self.y_speed
         self.step_counter += 1
-        if self.step_counter >= 5:
+        if self.step_counter > 4:
             self.step_counter = 0
             if self.anim_count < 4:
                 self.anim_count += 1
@@ -108,20 +114,3 @@ class Enemy(Character):
 class Eyeball(Enemy):
     def __init__(self):
         pass
-
-        ''' for x in range(5):            
-            surf = pygame.Surface((sprite_size, sprite_size))
-            surf.blit(image, (0, 0), (x * sprite_size, 2 * sprite_size, sprite_size, sprite_size))
-            surf = pygame.transform.flip(surf, False, True)
-            surf.convert_alpha()
-            if scale != 1:
-                pygame.transform.scale(surf, (sprite_size, sprite_size), surf)
-            self.images.append(surf)
-        for x in range(5):            
-            surf = pygame.Surface((sprite_size, sprite_size))
-            surf.blit(image, (0, 0), (x * sprite_size, sprite_size, sprite_size, sprite_size))
-            surf = pygame.transform.flip(surf, False, True)
-            surf.convert_alpha()
-            if scale != 1:
-                pygame.transform.scale(surf, (sprite_size, sprite_size), surf)
-            self.images.append(surf) '''

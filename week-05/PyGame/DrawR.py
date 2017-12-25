@@ -31,6 +31,11 @@ class Window():
         self.background.convert_alpha()
         self.background.fill((200, 200, 0))
 
+    def draw_level(self, level):
+        x_off = (self.width - level.width * level.tileset.width) // 2
+        y_off = (self.height - level.height * level.tileset.height) // 2
+        self.background.blit(level.get_map_img(), (x_off, y_off))
+
     def draw_background(self):
         self.screen.blit(self.background, (0, 0))
 
