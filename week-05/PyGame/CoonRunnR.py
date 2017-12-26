@@ -7,12 +7,12 @@ import SoundBlastR
 import DrawR
 import CharactR
 import MappR
+import CollidR
 import pygame
 import sys
 
 from pygame.locals import *
 from random import randint
-
 
 clock = pygame.time.Clock()
 
@@ -42,7 +42,7 @@ player2.direction = 'NE'
 
 # Player 3
 player3 = CharactR.Player(grafx_dir, "rocky03.png", ['e','e','e','e'])
-player3.x_pos, player3.y_pos = 130, 130
+player3.x_pos, player3.y_pos = 130, 30
 player3.direction = 'E'
 
 # Player 4
@@ -57,6 +57,15 @@ all_unit.append(player2)
 all_unit.append(player3)
 all_unit.append(player4)
 
+map1 = MappR.Map(lvl_dir, 'test_level.lvl', 'F')
+
+root.draw_level(map1)
+
+wall_coll = CollidR.Wall_collider(map1, root.x_off, root.y_off)
+
+def move_all(unitlist):
+    for unit in unitlist:
+        unit.move(wall_coll)
 
 def main():
 
@@ -67,11 +76,7 @@ def main():
         print ('no sound')
         pygame.mixer = None
 
-    icon = ImagR.load_image(grafx_dir, 'icon.png')
-    pygame.display.set_icon(icon)
     pygame.mouse.set_visible(0)
-
-    map1 = MappR.Map(lvl_dir, 'test_level.lvl', 'F')
 
     root.draw_level(map1)
 
@@ -114,8 +119,11 @@ def main():
                         if event.key == unit.controls[3]:
                             if unit.x_speed == 1:
                                 unit.x_speed = 0      
-        
-        root.move_all(all_unit)
+
+        move_all(all_unit)
+
+        #for unit in all_unit:
+        #    wall_coll.unit_collider(unit)
 
         root.draw_background()
 

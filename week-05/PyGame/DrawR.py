@@ -12,6 +12,8 @@ class Window():
 
         self.height = height
 
+        self.x_off, self.y_off = 0, 0
+
         self.title = title
 
         self.icon_file = icon_file
@@ -32,17 +34,17 @@ class Window():
         self.background.fill((200, 200, 0))
 
     def draw_level(self, level):
-        x_off = (self.width - level.width * level.tileset.width) // 2
-        y_off = (self.height - level.height * level.tileset.height) // 2
-        self.background.blit(level.get_map_img(), (x_off, y_off))
+        self.x_off = (self.width - level.width * level.tileset.width) // 2
+        self.y_off = (self.height - level.height * level.tileset.height) // 2
+        self.background.blit(level.get_map_img(), (self.x_off, self.y_off))
 
     def draw_background(self):
         self.screen.blit(self.background, (0, 0))
 
-    def move_all(self, unitlist):
-        for unit in unitlist:
-            unit.move()
-    
+    def draw_boxes(self, boxes):
+        for box in boxes:
+            pygame.draw.rect(self.screen, (255,0,255), box, 1)
+
     def blit_all(self, unitlist):
         for unit in unitlist:
             self.screen.blit(unit.anim, (unit.x_pos, unit.y_pos))

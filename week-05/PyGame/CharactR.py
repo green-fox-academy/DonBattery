@@ -1,5 +1,6 @@
 # Characters
 
+import CollidR
 import pygame
 import ImagR
 
@@ -89,9 +90,18 @@ class Character():
         if self.x_speed == 0 and self.y_speed == 0:
             return self.direction
     
-    def move(self):
-        self.x_pos += self.x_speed
-        self.y_pos += self.y_speed
+    def move(self, collider):
+
+        self.foot_rect = pygame.Rect(self.x_pos+7,self.y_pos + 23, 20, 9)
+        
+        side_test_rect = pygame.Rect(self.x_pos + 7 + self.x_speed, self.y_pos + 23, 20, 9)
+        if not collider.side_wall_collide(side_test_rect):
+            self.x_pos += self.x_speed
+        
+        topdown_test_rect = pygame.Rect(self.x_pos + 7, self.y_pos + 23 + self.y_speed, 20, 9)
+        if not collider.topdown_wall_collide(topdown_test_rect):
+            self.y_pos += self.y_speed
+
         self.step_counter += 1
         if self.step_counter > 4:
             self.step_counter = 0
@@ -99,9 +109,9 @@ class Character():
                 self.anim_count += 1
             else:
                 self.anim_count = 0
+
         self.direction = self.get_direction()
         self.anim = self.get_image()     
-        self.foot_rect = pygame.Rect(self.x_pos+2,self.y_pos + 20, 30, 10)
 
 class Player(Character):
     def __init__(self, imagepath, imagename, controls):

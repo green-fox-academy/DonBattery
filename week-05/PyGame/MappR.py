@@ -140,6 +140,8 @@ class Map():
 
                 tile.blit(self.tileset.tiles[0], (0,0))
 
+                #tile.fill(self.colors[0])
+
                 if self.tilemap[y][x] == 1:
                     
                     tile_type = self.get_tile_type(y, x)                    
