@@ -9,7 +9,7 @@ sprite_size = 34
 
 # This class represents a character in the game; a player or an enemy
 # It has pixel position, speed, and a collection of pictures for each animation frame
-# Also it contains a rectangular area to check collosion
+
 class Character():
 
     def __init__(self, imagepath, imagename):
@@ -24,8 +24,8 @@ class Character():
         self.y_pos = 0
         self.x_speed = 0
         self.y_speed = 0        
-        self.foot_rect = pygame.Rect(0,0,30,10)
         self.anim = pygame.Surface((sprite_size, sprite_size)).convert_alpha()
+        self.foot_rect = pygame.Rect(0,0,30,10)
 
         for y in range(5):
             for x in range(5):
@@ -101,6 +101,7 @@ class Character():
                 self.anim_count = 0
         self.direction = self.get_direction()
         self.anim = self.get_image()     
+        self.foot_rect = pygame.Rect(self.x_pos+2,self.y_pos + 20, 30, 10)
 
 class Player(Character):
     def __init__(self, imagepath, imagename, controls):

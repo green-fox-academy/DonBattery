@@ -6,20 +6,17 @@ import ImagR
 import FilR
 import os
 
+# loads tileimages to a list based on a file, the height will determine the tile-size,
+# and the width will determine the number of tiles in the list
 class Tile_set():
 
     def __init__(self, filepath, file):
 
         self.image = ImagR.load_image(filepath, file)
-
         self.height = self.image.get_height()
-
         self.width = self.height
-
         self.size = self.width, self.height
-
         img_count = self.image.get_width() // self.width
-
         self.tiles = []
 
         for i in range(img_count):
@@ -84,7 +81,9 @@ class Map():
                 main_dir = os.path.split(os.path.abspath(__file__))[0]                
                 grafx_dir = main_dir + "\\GrafX\\"                                                
                 self.tileset = Tile_set(grafx_dir, self.tile_file)
-   
+    
+    # this method requires a map position and returns a tupple of booleans, 
+    # for each is True if the associated tile is a wall
     def get_tile_type(self, y, x):
 
         top = False
@@ -123,11 +122,15 @@ class Map():
         
         return (top, bot, left, right, topleft, topright, botleft, botright)
 
+    # Creates an image about the map, based on the tilemap and the tileset
+    # also this method will claculate the wall pictures    
     def get_map_img(self):
         
         img = pygame.Surface((self.width * self.tileset.width, self.height * self.tileset.height))
         
         tile_border = 2
+
+        tile_third = self.tileset.height // 2
 
         for y in range(self.height):
 
@@ -139,9 +142,7 @@ class Map():
 
                 if self.tilemap[y][x] == 1:
                     
-                    tile_type = self.get_tile_type(y, x)
-                    
-                    tile_third = self.tileset.height // 2
+                    tile_type = self.get_tile_type(y, x)                    
                                 
                     color1 = self.colors[3]
                     color2 = self.colors[3]
@@ -156,7 +157,6 @@ class Map():
                     color11 = 0
                     
                     left_off = 0
-
                     right_off = 0
 
                     if tile_type[0]:
@@ -231,7 +231,7 @@ class Map():
                     # bot line
                     pygame.draw.rect(tile, color9, (tile_border - left_off, self.tileset.height - tile_border, self.tileset.width - tile_border * 2 + left_off + right_off, tile_border), 0)
 
-                    # extra pixels
+                    # extra miniboxes (topleft and topright)
                     if color10 != 0:
                         pygame.draw.rect(tile, color10, (0, 0, tile_border, tile_border), 0)
                     

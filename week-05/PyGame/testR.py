@@ -26,10 +26,6 @@ soundfx_dir = main_dir + "\\SoundFX\\"
 
 lvl_dir = main_dir + "\\LevelZ\\"
 
-print(grafx_dir)
-
-print(soundfx_dir)
-
 root = DrawR.Window(640, 480, '', mode = 'F')
 
 # Player 1
@@ -129,8 +125,8 @@ def main():
 
     pygame.quit()
 
-    print('\nThank you for playing Coon Runner')
-    print('May the Coons be with you')
+    print('\nThank you for playing the Coon Runner')
+    print('May the Coons be with you :)')
 
 if __name__ == '__main__': 
     main()
