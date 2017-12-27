@@ -26,7 +26,7 @@ soundfx_dir = main_dir + "\\SoundFX\\"
 
 lvl_dir = main_dir + "\\LevelZ\\"
 
-root = DrawR.Window(640, 480, '', mode = 'F')
+root = DrawR.Window(640, 480, 'Coon Runner', mode = 'F')
 
 # Player 1
 controls1 = [K_DOWN, K_LEFT, K_UP, K_RIGHT]
@@ -63,6 +63,8 @@ root.draw_level(map1)
 
 wall_coll = CollidR.Wall_collider(map1, root.x_off, root.y_off)
 
+map1.update_sprite_pos(root.x_off, root.y_off)
+
 def move_all(unitlist):
     for unit in unitlist:
         unit.move(wall_coll)
@@ -76,11 +78,11 @@ def main():
         print ('no sound')
         pygame.mixer = None
 
+    pygame.mixer.music.load(soundfx_dir + map1.info[3])
+
+    pygame.mixer.music.play(-1)
+
     pygame.mouse.set_visible(0)
-
-    root.draw_level(map1)
-
-    root.draw_background()
 
     game_on = True
 
@@ -127,7 +129,9 @@ def main():
 
         root.draw_background()
 
-        root.blit_all(all_unit)
+        root.blit_all(all_unit, map1)
+
+        root.draw_boxes(map1.test_boxes)
 
         pygame.display.update()
 

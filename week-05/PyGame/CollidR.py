@@ -6,6 +6,7 @@ import pygame
 from pygame.locals import *
 
 # This class will create collosion self.boxes for walls
+# and wall-boxes for collosion detection
 class Wall_collider():
     
     def __init__(self, map, x_off, y_off):
@@ -76,3 +77,6 @@ class Wall_collider():
             if box.y <= self.wall_boxes[col].y + self.wall_boxes[col].h and box.y >= self.wall_boxes[col].y or box.y + box.h >= self.wall_boxes[col].y and box.y + box.h <= self.wall_boxes[col].y + self.wall_boxes[col].h:
                 collide = True
         return collide
+
+''' class Unit_collider():
+    def __init__(self,) '''

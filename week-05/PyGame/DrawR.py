@@ -18,7 +18,7 @@ class Window():
 
         self.icon_file = icon_file
 
-        self.mode = pygame.RESIZABLE
+        self.mode = pygame.HWSURFACE
 
         if mode == 'F':
             self.mode = pygame.FULLSCREEN
@@ -45,6 +45,12 @@ class Window():
         for box in boxes:
             pygame.draw.rect(self.screen, (255,0,255), box, 1)
 
-    def blit_all(self, unitlist):
+    def blit_all(self, unitlist, map):
+
         for unit in unitlist:
             self.screen.blit(unit.anim, (unit.x_pos, unit.y_pos))
+        
+        map.sprites.draw(self.screen)
+
+        
+    

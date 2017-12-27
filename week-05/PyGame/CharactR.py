@@ -103,7 +103,7 @@ class Character():
             self.y_pos += self.y_speed
 
         self.step_counter += 1
-        if self.step_counter > 4:
+        if self.step_counter > 5:
             self.step_counter = 0
             if self.anim_count < 4:
                 self.anim_count += 1
