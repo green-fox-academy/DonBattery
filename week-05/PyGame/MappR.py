@@ -29,19 +29,6 @@ class Tile_set():
 
             self.tiles.append(img)
 
-# Create sprites from tiles
-class Tile_Sprite(pygame.sprite.Sprite):
-
-    def __init__(self, img, x, y):
-
-        pygame.sprite.Sprite.__init__(self)
-
-        self.image = img
-        self.rect = self.image.get_rect()
-        self.rect.x = x
-        self.rect.y = y
-
-
 # Map Info
 # 0 width
 # 1 height
@@ -55,8 +42,7 @@ class Tile_Sprite(pygame.sprite.Sprite):
 class Map():
 # create the Map object either Empyt from File or Randomly
     def __init__(self, filepath = '', file = '', mode = ''):
-        self.test_boxes = []     
-        self.sprites = pygame.sprite.Group()
+    
         self.data = []
         self.info = []
         self.tilemap = []
@@ -79,7 +65,7 @@ class Map():
             else:
                 self.data = self.file_con.get_lines()
                 self.info = self.data[0].split(';')
-                self.size = self.width, self.height  = int(self.info[0]), int(self.info[1])
+                self.size = self.width, self.height = int(self.info[0]), int(self.info[1])
                 self.tile_file = self.info[2]
                 self.theme_file = self.info[3]
                 self.game_mode = self.info[4]
@@ -96,9 +82,11 @@ class Map():
                 main_dir = os.path.split(os.path.abspath(__file__))[0]                
                 grafx_dir = main_dir + "\\GrafX\\"                                                
                 self.tileset = Tile_set(grafx_dir, self.tile_file)
-    
+                
+                print(self.tileset.width)
+
     # this method requires a map position and returns a tupple of booleans, 
-    # for each is True if the associated tile is a wall
+    # for each is True if the associated tile is a wall 
     def get_tile_type(self, y, x):
 
         top = False
@@ -138,7 +126,7 @@ class Map():
         return (top, bot, left, right, topleft, topright, botleft, botright)
 
     # Creates an image about the map, based on the tilemap and the tileset
-    # also this method will claculate the wall pictures    
+        
     def get_map_img(self):
         
         img = pygame.Surface((self.width * self.tileset.width, self.height * self.tileset.height))
@@ -255,18 +243,14 @@ class Map():
 
                     #tile.blit(tile_overlay, (0,0))
 
-                    if not tile_type[0]:
-                        sprite = Tile_Sprite(tile, x * self.tileset.width, y * self.tileset.height)
-                        sprite.add(self.sprites)
-
                 img.blit(tile, (x * self.tileset.width, y * self.tileset.height))
 
         return img
 
-    # update all the wall sprites position according to screen x and y offset
+'''    # update all the wall sprites position according to screen x and y offset
     def update_sprite_pos(self, x_off, y_off):
         for sprite in self.sprites:
             sprite.rect.x += x_off
             sprite.rect.y += y_off
-            self.test_boxes.append(sprite.rect)
+            self.test_boxes.append(sprite.rect) '''
         

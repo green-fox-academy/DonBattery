@@ -26,7 +26,7 @@ soundfx_dir = main_dir + "\\SoundFX\\"
 
 lvl_dir = main_dir + "\\LevelZ\\"
 
-root = DrawR.Window(640, 480, 'Coon Runner', mode = 'F')
+root = DrawR.Window(640, 480, 'Coon Runner', mode = 'W')
 
 # Player 1
 controls1 = [K_DOWN, K_LEFT, K_UP, K_RIGHT]
@@ -37,17 +37,17 @@ player1.direction = 'S'
 # Player 2
 controls2 = [K_s, K_a, K_w, K_d]
 player2 = CharactR.Player(grafx_dir, "rocky02.png", controls2)
-player2.x_pos, player2.y_pos = 30, 30
+player2.x_pos, player2.y_pos = 130, 30
 player2.direction = 'NE'
 
 # Player 3
 player3 = CharactR.Player(grafx_dir, "rocky03.png", ['e','e','e','e'])
-player3.x_pos, player3.y_pos = 130, 30
+player3.x_pos, player3.y_pos = 130, 60
 player3.direction = 'E'
 
 # Player 4
 player4 = CharactR.Player(grafx_dir, "rocky04.png", ['e','e','e','e'])
-player4.x_pos, player4.y_pos = 30, 130
+player4.x_pos, player4.y_pos = 130, 90
 player4.direction = 'SE'
 
 all_unit = []
@@ -57,13 +57,11 @@ all_unit.append(player2)
 all_unit.append(player3)
 all_unit.append(player4)
 
-map1 = MappR.Map(lvl_dir, 'test_level.lvl', 'F')
+map1 = MappR.Map(lvl_dir, 'test_level.lvl', mode = 'F')
 
-root.draw_level(map1)
+root.init_level(map1)
 
 wall_coll = CollidR.Wall_collider(map1, root.x_off, root.y_off)
-
-map1.update_sprite_pos(root.x_off, root.y_off)
 
 def move_all(unitlist):
     for unit in unitlist:
@@ -80,7 +78,7 @@ def main():
 
     pygame.mixer.music.load(soundfx_dir + map1.info[3])
 
-    pygame.mixer.music.play(-1)
+    #pygame.mixer.music.play(-1)
 
     pygame.mouse.set_visible(0)
 
@@ -124,16 +122,14 @@ def main():
 
         move_all(all_unit)
 
-        #for unit in all_unit:
-        #    wall_coll.unit_collider(unit)
-
         root.draw_background()
 
-        root.blit_all(all_unit, map1)
+        root.blit_all(all_unit)
 
-        root.draw_boxes(map1.test_boxes)
+        #TEST
+        root.draw_boxes(root.test_boxes)
 
-        pygame.display.update()
+        pygame.display.flip()
 
     pygame.quit()
 
