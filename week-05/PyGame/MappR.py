@@ -82,8 +82,6 @@ class Map():
                 main_dir = os.path.split(os.path.abspath(__file__))[0]                
                 grafx_dir = main_dir + "\\GrafX\\"                                                
                 self.tileset = Tile_set(grafx_dir, self.tile_file)
-                
-                print(self.tileset.width)
 
     # this method requires a map position and returns a tupple of booleans, 
     # for each is True if the associated tile is a wall 

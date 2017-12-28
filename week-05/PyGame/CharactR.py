@@ -94,16 +94,18 @@ class Character():
 
         self.foot_rect = pygame.Rect(self.x_pos+7,self.y_pos + 23, 20, 9)
         
-        side_test_rect = pygame.Rect(self.x_pos + 7 + self.x_speed, self.y_pos + 23, 20, 9)
-        if not collider.side_wall_collide(side_test_rect):
-            self.x_pos += self.x_speed
-        
-        topdown_test_rect = pygame.Rect(self.x_pos + 7, self.y_pos + 23 + self.y_speed, 20, 9)
-        if not collider.topdown_wall_collide(topdown_test_rect):
-            self.y_pos += self.y_speed
+        if self.x_speed != 0:
+            side_test_rect = pygame.Rect(self.x_pos + 7 + self.x_speed, self.y_pos + 23, 20, 9)
+            if collider.horizontal_ok(self.foot_rect, side_test_rect):
+                self.x_pos += self.x_speed
+            
+        if self.y_speed != 0:
+            topdown_test_rect = pygame.Rect(self.x_pos + 7, self.y_pos + 23 + self.y_speed, 20, 9)
+            if collider.vertical_ok(self.foot_rect, topdown_test_rect):
+                self.y_pos += self.y_speed
 
         self.step_counter += 1
-        if self.step_counter > 5:
+        if self.step_counter > 6:
             self.step_counter = 0
             if self.anim_count < 4:
                 self.anim_count += 1
