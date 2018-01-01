@@ -94,6 +94,6 @@ class Window():
     def blit_all(self, unitlist):
         new_list = sorted(unitlist, key=lambda character: character.y_pos)        
         for unit in new_list:
-            self.screen.blit(unit.anim, (unit.x_pos, unit.y_pos))
+            self.screen.blit(unit.get_image(), (unit.x_pos, unit.y_pos))
         self.wall_sprites.draw(self.screen)
         

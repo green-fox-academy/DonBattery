@@ -24,7 +24,8 @@ class Character():
         self.x_pos = 0
         self.y_pos = 0
         self.x_speed = 0
-        self.y_speed = 0        
+        self.y_speed = 0
+        self.boost = 2        
         self.anim = pygame.Surface((sprite_size, sprite_size)).convert_alpha()
         self.foot_rect = pygame.Rect(0,0,30,10)
 
@@ -46,7 +47,9 @@ class Character():
     # returns the correct self-image based on direction and anim_counter
     def get_image(self):
         
-        # if sirection is 'S'
+        self.direction = self.get_direction()
+
+        # if direction is 'S'
         off = 0
 
         if self.direction == 'SW':
@@ -63,6 +66,14 @@ class Character():
             off = 30
         elif self.direction == 'SE':
             off = 35
+
+        self.step_counter += 1
+        if self.step_counter > 6 - self.boost:
+            self.step_counter = 0
+            if self.anim_count < 4:
+                self.anim_count += 1
+            else:
+                self.anim_count = 0
 
         if self.x_speed == 0 and self.y_speed == 0:
             self.anim_count = 0
@@ -91,8 +102,6 @@ class Character():
             return self.direction
     
     def move(self, collider):
-
-        self.foot_rect = pygame.Rect(self.x_pos+7,self.y_pos + 23, 20, 9)
         
         if self.x_speed != 0:
             side_test_rect = pygame.Rect(self.x_pos + 7 + self.x_speed, self.y_pos + 23, 20, 9)
@@ -104,16 +113,7 @@ class Character():
             if collider.vertical_ok(self.foot_rect, topdown_test_rect):
                 self.y_pos += self.y_speed
 
-        self.step_counter += 1
-        if self.step_counter > 6:
-            self.step_counter = 0
-            if self.anim_count < 4:
-                self.anim_count += 1
-            else:
-                self.anim_count = 0
-
-        self.direction = self.get_direction()
-        self.anim = self.get_image()     
+        self.foot_rect = pygame.Rect(self.x_pos+7,self.y_pos + 23, 20, 9)
 
 class Player(Character):
     def __init__(self, imagepath, imagename, controls):

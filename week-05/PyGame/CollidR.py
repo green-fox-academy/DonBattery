@@ -47,7 +47,7 @@ class Collider():
         
         top_box = pygame.Rect(x_off - 2, y_off - 2, map.width * map.tileset.width + 4, 2)
         left_box = pygame.Rect(x_off -2, y_off - 2, 2, map.height * map.tileset.height + 4)
-        bot_box = pygame.Rect(x_off -2, map.height * map.tileset.height, map.width * map.tileset.width + 4, 2)
+        bot_box = pygame.Rect(x_off -2, y_off + map.height * map.tileset.height, map.width * map.tileset.width + 4, 2)
         right_box = pygame.Rect(x_off + map.width * map.tileset.width, y_off - 2, 2, map.height * map.tileset.height + 4)
 
         self.wall_boxes.append(top_box)
@@ -81,7 +81,7 @@ class Collider():
                 return True
         return False
     
-    # Test if a box collides to any top or moddom side of a wall
+    # Test if a box collides to any top or boddom side of a wall
     def topdown_wall_collide(self, box):
         collosions = box.collidelistall(self.wall_boxes)        
         for col in collosions:
@@ -91,34 +91,32 @@ class Collider():
     
     # Test if a box collides to any left or right side of a foot_box
     def side_foot_collide(self, foot, box):
-        collosions = box.collidelistall(self.foot_boxes)        
+        test_boxes = self.foot_boxes + self.wall_boxes
+        test_boxes.remove(foot)
+        collosions = box.collidelistall(test_boxes)        
         for col in collosions:
-            if self.foot_boxes[col] != foot:
-                if box.x <= self.foot_boxes[col].x + self.foot_boxes[col].w and box.x >= self.foot_boxes[col].x or box.x + box.w >= self.foot_boxes[col].x and box.x + box.w <= self.foot_boxes[col].x + self.foot_boxes[col].w:
-                    return True
+            if box.x <= test_boxes[col].x + test_boxes[col].w and box.x >= test_boxes[col].x or box.x + box.w >= test_boxes[col].x and box.x + box.w <= test_boxes[col].x + test_boxes[col].w:
+                return True
         return False
     
     # Test if a box collides to top or bottom of a footbox
     def topdown_foot_collide(self, foot, box):
-        collosions = box.collidelistall(self.foot_boxes)        
+        test_boxes = self.foot_boxes + self.wall_boxes 
+        test_boxes.remove(foot)
+        collosions = box.collidelistall(test_boxes)        
         for col in collosions:
-            if self.foot_boxes[col] != foot:
-                if box.y <= self.foot_boxes[col].y + self.foot_boxes[col].h and box.y >= self.foot_boxes[col].y or box.y + box.h >= self.foot_boxes[col].y and box.y + box.h <= self.foot_boxes[col].y + self.foot_boxes[col].h:
-                    return True
+            if box.y <= test_boxes[col].y + test_boxes[col].h and box.y >= test_boxes[col].y or box.y + box.h >= test_boxes[col].y and box.y + box.h <= test_boxes[col].y + test_boxes[col].h:
+                return True
         return False
 
     # Test if box can go left or right
     def horizontal_ok(self, foot_box, check_box):
-        if self.side_wall_collide(check_box):
-            return False
         if self.side_foot_collide(foot_box, check_box):
             return False
         return True
     
     # Test if box can move up or down
     def vertical_ok(self, foot_box, check_box):
-        if self.topdown_wall_collide(check_box):
-            return False
         if self.topdown_foot_collide(foot_box, check_box):
             return False        
         return True

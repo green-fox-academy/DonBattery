@@ -15,7 +15,9 @@ from random import randint
 
 clock = pygame.time.Clock()
 
-FPS = 60
+FPS = 30
+
+GAME_TICKS = 16
 
 main_dir = os.path.split(os.path.abspath(__file__))[0]
 
@@ -29,16 +31,18 @@ lvl_dir = main_dir + "\\LevelZ\\"
 root = DrawR.Window(640, 480, 'Coon Runner', mode = 'F')
 
 # Player 1
-controls1 = [K_DOWN, K_LEFT, K_UP, K_RIGHT]
+controls1 = [K_UP, K_DOWN, K_LEFT, K_RIGHT]
 player1 = CharactR.Player(grafx_dir, "rocky01.png", controls1)
 player1.x_pos, player1.y_pos = 200, 30
 player1.direction = 'S'
+player1.boost = 7
 
 # Player 2
-controls2 = [K_s, K_a, K_w, K_d]
+controls2 = [K_w, K_s, K_a, K_d]
 player2 = CharactR.Player(grafx_dir, "rocky02.png", controls2)
 player2.x_pos, player2.y_pos = 130, 30
 player2.direction = 'NE'
+player2.boost = 2
 
 # Player 3
 player3 = CharactR.Player(grafx_dir, "rocky03.png", ['e','e','e','e'])
@@ -50,12 +54,12 @@ player4 = CharactR.Player(grafx_dir, "rocky04.png", ['e','e','e','e'])
 player4.x_pos, player4.y_pos = 130, 90
 player4.direction = 'SE'
 
-all_unit = []
+all_player = []
 
-all_unit.append(player1)
-all_unit.append(player2)
-# all_unit.append(player3)
-all_unit.append(player4)
+all_player.append(player1)
+all_player.append(player2)
+# all_player.append(player3)
+# all_player.append(player4)
 
 map1 = MappR.Map(lvl_dir, 'test_level.lvl', mode = 'F')
 
@@ -63,9 +67,11 @@ root.init_level(map1)
 
 collider = CollidR.Collider(map1, root.x_off, root.y_off)
 
-def move_all(unitlist):
+def move_all(unitlist, tick):
     for unit in unitlist:
-        unit.move(collider)
+        if tick < unit.boost:
+            unit.move(collider)
+
 
 def main():
 
@@ -78,7 +84,7 @@ def main():
     
     # Load and start Map Theme music on loop
     pygame.mixer.music.load(soundfx_dir + map1.info[3])
-    #pygame.mixer.music.play(-1)
+    pygame.mixer.music.play(-1)
 
     # Set the mouse to invish
     pygame.mouse.set_visible(0)
@@ -95,51 +101,38 @@ def main():
             if event.type == QUIT or (event.type == KEYDOWN and event.key == K_ESCAPE):
                 game_on = False
             
-            # Get thoes Coons Runnning if control key was pressed
-            if event.type == KEYDOWN:
-                for unit in all_unit:
-                    if isinstance(unit, CharactR.Player):                            
-                        if event.key == unit.controls[0]:
-                            unit.y_speed = 1
-                        if event.key == unit.controls[1]:
-                            unit.x_speed = -1
-                        if event.key == unit.controls[2]:
-                            unit.y_speed = -1
-                        if event.key == unit.controls[3]:
-                            unit.x_speed = 1
-            
-            # Stop the Coons if control key was released
-            # notice how the four control keys regulate the x and y speed of a player-character
-            if event.type == KEYUP:
-                for unit in all_unit:
-                    if isinstance(unit, CharactR.Player):                            
-                        if event.key == unit.controls[0]:
-                            if unit.y_speed == 1:
-                                unit.y_speed = 0
-                        if event.key == unit.controls[1]:
-                            if unit.x_speed == -1:
-                                unit.x_speed = 0
-                        if event.key == unit.controls[2]:
-                            if unit.y_speed == -1:
-                                unit.y_speed = 0
-                        if event.key == unit.controls[3]:
-                            if unit.x_speed == 1:
-                                unit.x_speed = 0      
+        key_state = pygame.key.get_pressed()
 
-        # Show the collider unit where the players are
-        collider.update_foot_boxes(all_unit)
+        for unit in all_player:
+            if key_state[unit.controls[0]]:
+                unit.y_speed = - 1
+            if key_state[unit.controls[1]]:
+                unit.y_speed = 1
+            if key_state[unit.controls[2]]:
+                unit.x_speed = -1
+            if key_state[unit.controls[3]]:
+                unit.x_speed = 1
+            if (key_state[unit.controls[0]] and key_state[unit.controls[1]]) or (not(key_state[unit.controls[0]]) and not(key_state[unit.controls[1]])):
+                unit.y_speed = 0
+            if (key_state[unit.controls[2]] and key_state[unit.controls[3]]) or (not(key_state[unit.controls[2]]) and not(key_state[unit.controls[3]])):
+                unit.x_speed = 0
 
-        # Time to move all objects (if possible)
-        move_all(all_unit)
+        for tick in range(GAME_TICKS):
+            # Show the collider unit where the players are
+            collider.update_foot_boxes(all_player)
+
+            # Time to move all objects (if possible)
+            move_all(all_player, tick)
 
         # Draw the background first
         root.draw_background()
 
         # Call the DrawR's intelligent render method to draw the sprites in order to the screen
-        root.blit_all(all_unit)
+        root.blit_all(all_player)
 
         # . o O TEST ERASE THIS LATER TEST O o .
-        root.draw_boxes(root.test_boxes)
+        #root.test_boxes = collider.foot_boxes
+        #root.draw_boxes(root.test_boxes)
 
         # Display all the rendered graphics onto the screen
         pygame.display.flip()
