@@ -1,0 +1,135 @@
+* {
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+}
+
+
+body {
+    background: black;
+}
+
+.back_ground {
+    position: absolute;
+    background: rgb(0, 1, 10);
+    width: 100%;
+    height: 100%;
+}
+
+.sky {
+    position: absolute;
+    z-index: 0;
+    left : 0%;
+    top: 0%;
+    width: 100%;
+    height: 75%;
+    background: rgb(10, 2, 56)
+}
+
+.moon {
+    position: absolute;
+    left: 80%;
+    top: 15%;
+    height: 13%;
+    width: 13%;
+    border-radius: 50%;
+    z-index: 1;
+    background: rgb(243, 255, 73)
+}
+
+.inner_moon {
+    position: absolute;
+    left: 30%;
+    top: 13%;
+    height: 70%;
+    width: 70%;
+    border-radius: 50%;
+    z-index: 2;
+    background: rgb(251, 255, 196)    
+}
+
+.house {
+    position: absolute;
+    z-index: 3;
+    background: rgb(10, 7, 20);
+    background-image: url("building1.jpg");
+    opacity: 0.8;
+}
+
+.house1 {
+    left: 0%;
+    top: 45%;
+    height: 55%;
+    width: 9%;
+}
+
+.house2 {
+    left: 11%;
+    top: 49%;
+    height: 51%;
+    width: 9%;
+}
+
+.house3 {
+    left: 22%;
+    top: 42%;
+    height: 58%;
+    width: 11%;
+}
+
+.house4 {
+    left: 33%;
+    top: 52%;
+    height: 48%;
+    width: 13%;
+}
+
+.house5 {
+    left: 49%;
+    top: 45%;
+    height: 55%;
+    width: 9%;
+}
+
+.house6 {
+    left: 61%;
+    top: 40%;
+    height: 60%;
+    width: 7%;
+}
+
+.house7 {
+    left: 70%;
+    top: 45%;
+    height: 55%;
+    width: 12%;
+}
+
+.house8 {
+    left: 83%;
+    top: 57%;
+    height: 43%;
+    width: 10%;
+}
+
+.house9 {
+    left: 93.5%;
+    top: 40%;
+    height: 60%;
+    width: 6.5%;
+}
+
+.cloud {
+    position: absolute;
+    z-index: 2;
+/*     background: rgb(10, 7, 20); */
+    background-image: url("cloud2.png");
+    opacity: 0.9;
+}
+
+.cloud1 {
+    left: 3%;
+    top: 8%;
+    height: 100px;
+    width: 200px; 
+}
