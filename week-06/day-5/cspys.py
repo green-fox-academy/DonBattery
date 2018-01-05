@@ -6,8 +6,9 @@
 
 from filecontroller import File_Controller
 import os.path 
+from random import randint
 
-screen_size = screen_width, screen_height = 40, 22
+screen_size = screen_width, screen_height = 10, 10
 
 class Box_array(object):
     def __init__(self, size):
@@ -41,18 +42,37 @@ class Cspys(object):
             '<link rel="stylesheet" href="' + self.css_filename + '">',
             '<title>' + self.title + '</title>',
             '</head>',
-            '<body>']
+            '<body>',
+            '\n']
 
         for row in range(self.height):
             new_row = ''
             for col in range(self.width):
                 new_row += '<div class="' + 'row' + str(row) + ' ' + 'col' + str(col) + '"></div>'
-            self.html_data.append(new_row)
+            self.html_data.append(new_row + '\n')
 
-        for line in self.html_data:
-            print(line)
+        self.html_data += ['</body>','</html>']
 
-app = Cspys(screen_size, "test1", "Cascading Style PythonS")
+        self.html_file.multiple_line_writer(self.html_data)
+
+    def generate_css_data(self):
+
+        self.css_data = ['* {box-sizing: border-box;margin: 0px;padding: 0px;position: absolute;height: 100%; width: 100%} \n']
+
+        for row in range(self.height):
+            new_row = ''
+            for col in range(self.width):
+                color1 = str(randint(0,255))
+                color2 = str(randint(0,255))
+                color3 = str(randint(0,255))
+                colorset = color1 + ', ' + color2 + ', ' + color3
+                new_row += '.row' + str(row) + '.col' + str(col) + '{left: ' + str(100 // self.width * col) + '%;top :' + str(100 // self.height * row) + '%; height: ' + str(100 // self.height) + '%; width: ' + str(100 // self.width) + '%; background : rgb(' + colorset + ');} \n'
+            self.css_data.append(new_row)
+        self.css_file.multiple_line_writer(self.css_data)
+
+app = Cspys(screen_size, "test2", "Cascading Style PythonS")
 
 app.generate_html_data()
+
+app.generate_css_data()
     
