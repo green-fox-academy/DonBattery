@@ -40,7 +40,7 @@ class Tile_set():
 
 # The Map God-Class
 class Map():
-# create the Map object either Empyt from File or Randomly
+# create the Map object either Empyt from File (or Randomly DO NOT WORKING RIGHT NOW)
     def __init__(self, filepath = '', file = '', mode = ''):
     
         self.data = []
@@ -83,8 +83,8 @@ class Map():
                 grafx_dir = os.path.join(main_dir, 'GrafX')                                                
                 self.tileset = Tile_set(grafx_dir, self.tile_file)
 
-    # this method requires a map position and returns a tupple of booleans, 
-    # for each is True if the associated tile is a wall 
+    # This method requires a map position and returns a tupple of booleans, 
+    # for each is True if the associated tile is a wall (fucked up order)
     def get_tile_type(self, y, x):
 
         top = False
@@ -123,8 +123,9 @@ class Map():
         
         return (top, bot, left, right, topleft, topright, botleft, botright)
 
-    # Creates an image about the map, based on the tilemap and the tileset
-        
+    # Creates an image about the map, based on the tilemap and the tileset (if set to tiled it will draw the tileset's first image on the ground
+    # If not; it will be filled with the first map-color)
+    # This method also responsible for the drawing of the correct kind of wall at map positions with value of 1        
     def get_map_img(self, tiled = True):
         
         img = pygame.Surface((self.width * self.tileset.width, self.height * self.tileset.height))
@@ -138,16 +139,16 @@ class Map():
             for x in range(self.width):
 
                 tile = pygame.Surface(self.tileset.size).convert_alpha()
-
+                # Fill the tile either with the first tile image from the tileset or the map's first color
                 if tiled:
                     tile.blit(self.tileset.tiles[0], (0,0))
                 else:
                     tile.fill(self.colors[0])
-
+                # If the actual map position is a wall
                 if self.tilemap[y][x] == 1:
-                    
+                    # Get the actual neighboring tiles type (if they are walls)
                     tile_type = self.get_tile_type(y, x)                    
-                                
+                    # Setup a basic wall-tile          
                     color1 = self.colors[3]
                     color2 = self.colors[3]
                     color3 = self.colors[2]
@@ -161,7 +162,7 @@ class Map():
                     color11 = 0                    
                     left_off = 0
                     right_off = 0
-
+                    # Based on its neighbor walls set up the actual wall's colors and borders
                     if tile_type[0]:
                         color1 = self.colors[2]
 
@@ -239,9 +240,9 @@ class Map():
                     
                     if color11 != 0:
                         pygame.draw.rect(tile, color11, (self.tileset.width - tile_border, 0, tile_border, tile_border), 0)                
-
+                    # Experimental wall decoration
                     #tile.blit(tile_overlay, (0,0))
-
+                # Add the tile to the map's image
                 img.blit(tile, (x * self.tileset.width, y * self.tileset.height))
-
+        # Return the map's image
         return img       
