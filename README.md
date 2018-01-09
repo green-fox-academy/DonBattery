@@ -2,8 +2,7 @@
 ----------------------------------------------------------------------------------------------------------------------------------------
 
 Here you will find my humble projects I have worked on during the Corsac-cohor at
-the Green Fox Academy as a member of the BadCat class 
-
+the Green Fox Academy as a member of the BadCat class ![](https://raw.githubusercontent.com/greenfox-academy/DonBattery/master/badcat1.png)
 
 ### CLI Minesweeper
 
