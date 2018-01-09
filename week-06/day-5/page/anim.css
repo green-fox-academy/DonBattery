@@ -1,0 +1,32 @@
+* {box-sizing: border-box;margin: 0px;padding: 0px;height: 100%; width: 100%}
+
+.grid{display: grid; grid-template-columns: 1fr 1.4fr 0.6fr 3fr 7fr 9fr;grid-template-rows: 1fr 0.1fr 0.2fr 1fr 2fr}
+
+.sajt{left: 0%;top :0%; height: 100%; width: 100%; background : rgb(176, 208, 148);transition: 1000ms all ease-in;}
+
+.sajt:hover{
+    animation: around 1s ease-out;
+    transform: translate(100%, -130%) rotate(-359deg);
+    /* animation: esc 10s infinite; */
+    animation: esc 3s;
+}
+img{
+    position: absolute;
+    z-index: -1;
+}
+@keyframes around {
+    0% {background-color: rgb(255, 0, 0);}
+    10% {background-color: rgb(221, 0, 0);}
+    20% {background-color: rgb(185, 0, 0);}
+    30% {background-color: rgb(124, 0, 0);}
+    40% {background-color: rgb(71, 0, 0);}
+    50% {background-color: rgb(0, 0, 0);}
+    60% {background-color: rgb(65, 0, 0);}
+    70% {background-color: rgb(95, 0, 0);}
+    80% {background-color: rgb(172, 0, 0);}
+    90% {background-color: rgb(255, 0, 0);}
+    100% {background-color: rgba(255, 86, 86, 0);}
+}
+@keyframes esc {
+    99%{background-color: rgb(0,0,0)}
+}

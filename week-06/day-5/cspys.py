@@ -8,11 +8,22 @@ from filecontroller import File_Controller
 import os.path 
 from random import randint
 
-screen_size = screen_width, screen_height = 10, 10
+screen_size = screen_width, screen_height = 8, 8
 
 class Box_array(object):
     def __init__(self, size):
         self.size = self.width, self.height = size
+
+class Color_generator(object):
+    def __init__(self, size):
+        self.size = self.width, self.height = size
+        self.rgba_array = []
+
+    def get_rgb_string(r, g, b):
+        return 'rgb(' + str(r) + ',' + str(g) + ',' + str(b) + ',' + ')'
+
+    #def get_random_array(self):
+
 
 class Cspys(object):
     def __init__(self, size, file_name, title):
@@ -70,7 +81,7 @@ class Cspys(object):
             self.css_data.append(new_row)
         self.css_file.multiple_line_writer(self.css_data)
 
-app = Cspys(screen_size, "test2", "Cascading Style PythonS")
+app = Cspys(screen_size, "zoli_teszt", "Zcorp")
 
 app.generate_html_data()
 
