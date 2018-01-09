@@ -1,1 +1,1 @@
-;[ ]Sajt
+;[X]Sajt;[ ]Collect underpants;[ ]...;[ ]PROFIT
