@@ -2,7 +2,7 @@
 
 # Oh, Look all these imports! :S
 import os.path # This is needed to determine absolute path to the Graphics, Sound and Level folder
-import SoundBlastR # hmm...
+import SoundBlastR # This plays bacground music and sound effects
 import DrawR # This controls the window and all the graphics drawn on it
 import CharactR # This controls the character movement and animation
 import MappR # This controls the map
@@ -13,134 +13,109 @@ import sys
 from pygame.locals import *
 from random import randint
 
-clock = pygame.time.Clock()
+class Coon_game(object):
+    def __init__(self):
 
-FPS = 30
+        self.clock = pygame.time.Clock()
+        self.FPS = 30
+        self.GAME_TICKS = 16
+        self.main_dir = os.path.split(os.path.abspath(__file__))[0]
+        self.grafx_dir = os.path.join(self.main_dir, 'GrafX')
+        self.soundfx_dir = os.path.join(self.main_dir, 'SoundFX')
+        self.lvl_dir = os.path.join(self.main_dir, 'LevelZ')
+        self.root = DrawR.Window(640, 480, 'Coon Runner', mode = 'F') # This will be our window (mode W - window, F - fullscreen, N - Noframe, H - hardware accelearated)
 
-GAME_TICKS = 16
+        self.controls1 = [K_UP, K_DOWN, K_LEFT, K_RIGHT]
+        self.player1 = CharactR.Player(self.grafx_dir, "rocky01.png", self.controls1)
 
-main_dir = os.path.split(os.path.abspath(__file__))[0]
+        self.controls2 = [K_w, K_s, K_a, K_d]
+        self.player2 = CharactR.Player(self.grafx_dir, "rocky02.png", self.controls2)
+        self.all_player = [self.player1, self.player2]
+        # Set the mouse to invish
+        pygame.mouse.set_visible(0)
 
-grafx_dir = main_dir + "\\GrafX\\"
+    def init_map(self, player_list, mode = 'R', file = ''):
+        if mode == 'F':
+            map = MappR.Map(self.lvl_dir, file, mode = 'F')
+            SoundBlastR.play_music(os.path.join(self.soundfx_dir, map.info[3]))
+        for player in player_list:
+            other_player_list = player_list
+            other_player_list.remove(player)
+            player.spawn(map, other_player_list)
+        return map
 
-soundfx_dir = main_dir + "\\SoundFX\\"
+    def move_all(self, unitlist, collider, tick):
+        for unit in unitlist:
+            if tick < unit.boost:
+                unit.move(collider)
 
-lvl_dir = main_dir + "\\LevelZ\\"
+    # The Game ;)
+    def main(self):
+        # Load a map
+        # Right now this only can work with a map-file (mode = F), later random-map can be added
+        game_map = self.init_map(self.all_player, 'F', 'Popcorn.lvl') 
+        # This generates the graphics of the map (background and wall-sprites)
+        self.root.init_level(game_map)
+        # This will check the collosions during the game
+        collider = CollidR.Collider(game_map, self.root.x_off, self.root.y_off)
+        # Game-loop can be quited by seting this to False
+        game_on = True
 
-# This will be our window (mode W - window, F - fullscreen, N - Noframe, H - hardware accelearated)
-root = DrawR.Window(640, 480, 'Coon Runner', mode = 'F')
+        # Attention travellers! Mainloop ahead!
+        while game_on:
 
-# Player 1
-controls1 = [K_UP, K_DOWN, K_LEFT, K_RIGHT]
-player1 = CharactR.Player(grafx_dir, "rocky01.png", controls1)
-player1.x_pos, player1.y_pos = 200, 30
-player1.direction = 'S'
-player1.boost = 7
+            self.clock.tick(self.FPS) # Regulate the gamespeed to the given frame per secound
 
-# Player 2
-controls2 = [K_w, K_s, K_a, K_d]
-player2 = CharactR.Player(grafx_dir, "rocky02.png", controls2)
-player2.x_pos, player2.y_pos = 130, 30
-player2.direction = 'NE'
-player2.boost = 2
+            # Read the event queue and handle the events accordingly (now it is only for quiting)
+            for event in pygame.event.get():
+                if event.type == QUIT or (event.type == KEYDOWN and event.key == K_ESCAPE):
+                    game_on = False
 
-# Player 3
-player3 = CharactR.Player(grafx_dir, "rocky03.png", ['e','e','e','e'])
-player3.x_pos, player3.y_pos = 130, 60
-player3.direction = 'E'
+            # Read the keystate (which key(s) is(are) pressed on the keyboard right now) and set the character's speed accordingly    
+            key_state = pygame.key.get_pressed()
 
-# Player 4
-player4 = CharactR.Player(grafx_dir, "rocky04.png", ['e','e','e','e'])
-player4.x_pos, player4.y_pos = 130, 90
-player4.direction = 'SE'
+            for unit in self.all_player:
+                if key_state[unit.controls[0]]:
+                    unit.y_speed = - 1
+                if key_state[unit.controls[1]]:
+                    unit.y_speed = 1
+                if key_state[unit.controls[2]]:
+                    unit.x_speed = -1
+                if key_state[unit.controls[3]]:
+                    unit.x_speed = 1
+                if (key_state[unit.controls[0]] and key_state[unit.controls[1]]) or (not(key_state[unit.controls[0]]) and not(key_state[unit.controls[1]])):
+                    unit.y_speed = 0
+                if (key_state[unit.controls[2]] and key_state[unit.controls[3]]) or (not(key_state[unit.controls[2]]) and not(key_state[unit.controls[3]])):
+                    unit.x_speed = 0
 
-all_player = []
+            # The main idea behind this sequence is to update the "game-state" n times before updating the display once
+            # so we can move gameobjects with different speed
+            for tick in range(self.GAME_TICKS):
+                # Show the collider-unit where the players are
+                collider.update_foot_boxes(self.all_player)
+                # Time to move all objects (if possible)
+                self.move_all(self.all_player, collider, tick)
 
-all_player.append(player1)
-all_player.append(player2)
-# all_player.append(player3)
-# all_player.append(player4)
+            # Draw the background first
+            self.root.draw_background()
 
-map1 = MappR.Map(lvl_dir, 'test_level.lvl', mode = 'F')
+            # Call the DrawR's intelligent render method to draw the sprites in order to the screen
+            self.root.blit_all(self.all_player)
 
-root.init_level(map1)
+            # . o O TEST ERASE THIS LATER TEST O o .
+            #root.test_boxes = collider.foot_boxes
+            #root.draw_boxes(root.test_boxes)
 
-collider = CollidR.Collider(map1, root.x_off, root.y_off)
+            # Display all the rendered graphics onto the screen
+            pygame.display.flip()
 
-def move_all(unitlist, tick):
-    for unit in unitlist:
-        if tick < unit.boost:
-            unit.move(collider)
+        pygame.quit()
 
+        print('\nThank you for playing the Coon Runner')
+        print('May the Coons be with you :)')
 
-def main():
-
-    pygame.init()
-
-    # test sound    
-    if pygame.mixer and not pygame.mixer.get_init():
-        print ('no sound')
-        pygame.mixer = None
-    
-    # Load and start Map Theme music on loop
-    pygame.mixer.music.load(soundfx_dir + map1.info[3])
-    pygame.mixer.music.play(-1)
-
-    # Set the mouse to invish
-    pygame.mouse.set_visible(0)
-
-    game_on = True
-
-    # Attention travellers! Mainloop ahead!
-    while game_on:
-
-        clock.tick(FPS) # Regulate the gamespeed to the given frame per secound
-
-        # Read the event queue and handle the events accordingly
-        for event in pygame.event.get():
-            if event.type == QUIT or (event.type == KEYDOWN and event.key == K_ESCAPE):
-                game_on = False
-            
-        key_state = pygame.key.get_pressed()
-
-        for unit in all_player:
-            if key_state[unit.controls[0]]:
-                unit.y_speed = - 1
-            if key_state[unit.controls[1]]:
-                unit.y_speed = 1
-            if key_state[unit.controls[2]]:
-                unit.x_speed = -1
-            if key_state[unit.controls[3]]:
-                unit.x_speed = 1
-            if (key_state[unit.controls[0]] and key_state[unit.controls[1]]) or (not(key_state[unit.controls[0]]) and not(key_state[unit.controls[1]])):
-                unit.y_speed = 0
-            if (key_state[unit.controls[2]] and key_state[unit.controls[3]]) or (not(key_state[unit.controls[2]]) and not(key_state[unit.controls[3]])):
-                unit.x_speed = 0
-
-        for tick in range(GAME_TICKS):
-            # Show the collider unit where the players are
-            collider.update_foot_boxes(all_player)
-
-            # Time to move all objects (if possible)
-            move_all(all_player, tick)
-
-        # Draw the background first
-        root.draw_background()
-
-        # Call the DrawR's intelligent render method to draw the sprites in order to the screen
-        root.blit_all(all_player)
-
-        # . o O TEST ERASE THIS LATER TEST O o .
-        #root.test_boxes = collider.foot_boxes
-        #root.draw_boxes(root.test_boxes)
-
-        # Display all the rendered graphics onto the screen
-        pygame.display.flip()
-
-    pygame.quit()
-
-    print('\nThank you for playing the Coon Runner')
-    print('May the Coons be with you :)')
+the_game = Coon_game()
 
 if __name__ == '__main__': 
-    main()
+    pygame.init()
+    the_game.main()

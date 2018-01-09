@@ -80,7 +80,7 @@ class Map():
                         tileline.append(int(self.data[y + 2][x]))
                     self.tilemap.append(tileline)
                 main_dir = os.path.split(os.path.abspath(__file__))[0]                
-                grafx_dir = main_dir + "\\GrafX\\"                                                
+                grafx_dir = os.path.join(main_dir, 'GrafX')                                                
                 self.tileset = Tile_set(grafx_dir, self.tile_file)
 
     # this method requires a map position and returns a tupple of booleans, 
@@ -125,7 +125,7 @@ class Map():
 
     # Creates an image about the map, based on the tilemap and the tileset
         
-    def get_map_img(self):
+    def get_map_img(self, tiled = True):
         
         img = pygame.Surface((self.width * self.tileset.width, self.height * self.tileset.height))
         
@@ -139,9 +139,10 @@ class Map():
 
                 tile = pygame.Surface(self.tileset.size).convert_alpha()
 
-                tile.blit(self.tileset.tiles[0], (0,0))
-
-                #tile.fill(self.colors[0])
+                if tiled:
+                    tile.blit(self.tileset.tiles[0], (0,0))
+                else:
+                    tile.fill(self.colors[0])
 
                 if self.tilemap[y][x] == 1:
                     
@@ -243,12 +244,4 @@ class Map():
 
                 img.blit(tile, (x * self.tileset.width, y * self.tileset.height))
 
-        return img
-
-'''    # update all the wall sprites position according to screen x and y offset
-    def update_sprite_pos(self, x_off, y_off):
-        for sprite in self.sprites:
-            sprite.rect.x += x_off
-            sprite.rect.y += y_off
-            self.test_boxes.append(sprite.rect) '''
-        
+        return img       
