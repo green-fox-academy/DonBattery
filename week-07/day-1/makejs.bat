@@ -1,0 +1,1 @@
+@echo 'uses strict'; > %1.js

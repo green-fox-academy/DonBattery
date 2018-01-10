@@ -70,7 +70,7 @@ class Cspys(object):
             self.css_data.append(new_row)
         self.css_file.multiple_line_writer(self.css_data)
 
-app = Cspys(screen_size, "test2", "Cascading Style PythonS")
+app = Cspys(screen_size, "demo", "Cascading Style PythonS")
 
 app.generate_html_data()
 

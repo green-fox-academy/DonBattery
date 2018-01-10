@@ -31,5 +31,3 @@ function get_matrix(){
     }
     return mat
 }
-
-console.log(get_matrix())

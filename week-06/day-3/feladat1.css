@@ -1,0 +1,33 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+.container {
+    margin: 10px;
+    display: flex;
+    flex-flow: row wrap;
+    background: lightseagreen;
+}
+
+.item {
+    height: 120px;
+    width: 120px;
+    display: inline-flex;
+}
+
+.green {
+    background: greenyellow;
+
+}
+
+.yellow {
+    background: yellow;
+
+}
+
+.purple {
+    background: purple;
+
+}

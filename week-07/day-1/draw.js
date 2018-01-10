@@ -54,3 +54,12 @@ else {
         console.log(sim)
     }
 }
+
+['apple', 'pear', 'melon'].forEach(function(e, i) {
+    console.log(e, i);
+  });
+
+  var letters = 'apple'.split('');
+console.log(letters); // ['a', 'p', 'p', 'l', 'e']
+console.log(letters.join('')); // Worms in the apple!
+
