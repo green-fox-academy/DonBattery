@@ -33,7 +33,7 @@ class Window():
 
         self.icon_file = icon_file
 
-        self.wall_top_sprites = pygame.sprite.Group()
+        #self.wall_top_sprites = pygame.sprite.Group()
         
         self.wall_sprites = pygame.sprite.Group()
 
@@ -55,6 +55,7 @@ class Window():
         self.background.convert_alpha()
         self.background.fill((200, 200, 0))
 
+    # Draw a level's image to the background, and create sprites from walls
     def init_level(self, level):
         
         self.x_off = (self.width - level.width * level.tileset.width) // 2
@@ -63,13 +64,17 @@ class Window():
         self.get_wall_sprites(level, map_img, self.x_off, self.y_off)
         self.background.blit(map_img, (self.x_off, self.y_off))
 
+    # Draw the background (the Level itself) 
     def draw_background(self):
         self.screen.blit(self.background, (0, 0))
 
+    # Draw a list of rectangles to the screen, mainly for testing
     def draw_boxes(self, boxes):
         for box in boxes:
             pygame.draw.rect(self.screen, (255,0,255), box, 1)
 
+    # Populate the wall_sprites sprite-group with the images of walls, minus the "bottom" 2/3 (only applies to walls with no bottom-neighbor)
+    # This can be ruducated by the walls never overlaping game-objects
     def get_wall_sprites(self, map, map_img, x_off, y_off):
     
         for y in range(map.height):
@@ -91,6 +96,8 @@ class Window():
 
                     self.wall_sprites.add(sprite)
 
+    # Draw the characters onto the sceen ordered by y-position
+    # Then draw the wall_sprites (this can be optimised by not drawing wall-sprites, which does not colliding anything)
     def blit_all(self, unitlist):
         new_list = sorted(unitlist, key=lambda character: character.y_pos)        
         for unit in new_list:

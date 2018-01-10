@@ -3,7 +3,9 @@
 import CollidR
 import pygame
 import ImagR
-
+import MappR
+import math
+from random import randint
 from pygame.locals import *
 
 sprite_size = 34
@@ -25,7 +27,9 @@ class Character():
         self.y_pos = 0
         self.x_speed = 0
         self.y_speed = 0
-        self.boost = 2        
+        self.boost = 3
+        self.spawned = False
+
         self.anim = pygame.Surface((sprite_size, sprite_size)).convert_alpha()
         self.foot_rect = pygame.Rect(0,0,30,10)
 
@@ -77,8 +81,10 @@ class Character():
 
         if self.x_speed == 0 and self.y_speed == 0:
             self.anim_count = 0
-    
-        return self.images[off + self.anim_count]
+
+        self.anim = self.images[off + self.anim_count]
+        
+        return self.anim
     
     # returns the character direction, based on its speed
     def get_direction(self):
@@ -114,6 +120,25 @@ class Character():
                 self.y_pos += self.y_speed
 
         self.foot_rect = pygame.Rect(self.x_pos+7,self.y_pos + 23, 20, 9)
+    
+    def too_close(self, rad, pos):
+        x_dif = abs(self.x_pos - pos[0])
+        y_diff = abs(self.y_pos - pos[1])
+        return math.sqrt(x_dif ** 2 + y_diff ** 2) < rad 
+
+    def spawn(self, map, other_player_list):
+        while not self.spawned:
+            x = randint(0, map.width - 1)
+            y = randint(0, map.height - 1)
+            if map.tilemap[y][x] == 0:
+                self.x_pos = map.tileset.width * x
+                self.y_pos = map.tileset.height * y
+                self.spawned = True
+                for player in other_player_list:
+                    if player.spawned:                       
+                        if self.too_close(60, player.anim.get_rect().center):
+                            self.spawned = False
+
 
 class Player(Character):
     def __init__(self, imagepath, imagename, controls):

@@ -1,5 +1,6 @@
 import pygame
 from pygame.locals import *
+import os
 
 # see if we can load more than standard BMP
 if not pygame.image.get_extended():
@@ -7,7 +8,7 @@ if not pygame.image.get_extended():
 
 def load_image(path, file, mode = ''):
     "loads an image, prepares it for play"
-    file = path + file
+    file = os.path.join(path, file)
     try:
         surface = pygame.image.load(file)
     except pygame.error:
