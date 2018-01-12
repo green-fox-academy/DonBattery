@@ -52,9 +52,28 @@ Right now it is very basic and under construction... However the potential is st
 ### Coon Runner
 
 This is my biggest project so far. As an old fan of video-games I have took very seriously the game-making 
-excersise on the 5th week of the course. I have kept the original idea of a tile-based game with walls, but
-made it a fast pased multiplayer action game, with the help of the magnificent Pygame library, and many sleepless nights
+excersise on the 5th week of the course. I have kept the original idea of a tile-based walker with walls, but
+I wanted to make a multiplayer party game in the style of the old Nintendo / SEGA games
+
+The project is still on, wall-drawing, movement, background-music and collosions are working for 2 players. 
+More interaction / game-events, gamepad-support, leveleditor, sound effects needs to be added...
 
 
 [<img src="https://github.com/greenfox-academy/DonBattery/blob/master/week-05/PyGame/Temp/Collosion_boxes.png">](https://github.com/greenfox-academy/DonBattery/tree/master/week-05/PyGame)
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+
+### Image Gallery
+
+We had to make a picture gallery on the 7th week of the course. This is my implementation
+writen in Python.
+
+It puts all the images found in the gallery/ - library to a list and creates thumbnail.images
+for them as well. In the middle it displays the actual image, and at the bottom it displays
+the previous the current and the next picture's thumbnail. You can move on the list left
+or right with mouse-click or the arrow buttons.
+
+[<img src="https://github.com/greenfox-academy/DonBattery/blob/master/week-07/day-4/screenshot.png">](https://github.com/greenfox-academy/DonBattery/tree/master/week-07/day-4)
+
 
