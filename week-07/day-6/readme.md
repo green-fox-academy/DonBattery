@@ -1,0 +1,3 @@
+### GGNORE Gallery Generator
+
+An experimental CLI gallery generator...
