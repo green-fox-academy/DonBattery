@@ -1,5 +1,7 @@
 # This class controls a single file. 
 # Can test it for permission, read, write and epmtynes. Also able to create it.
+import os.path
+
 class File_Controller():
 
     def __init__(self, file_path, file_name):
@@ -15,7 +17,7 @@ class File_Controller():
         self.file_name = file_name
 
         # sum of the two above
-        self.true_path = file_path + file_name 
+        self.true_path = os.path.join(self.file_path, self.file_name) 
 
         # readlines
         self.file_as_lines = []
