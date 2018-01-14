@@ -69,6 +69,14 @@ class Argument_Compiler():
 
     def no_commands(self):
         return len(self.command_list) == 0
+    
+    def is_command_present(self, s_string):
+        present = False
+        if self.is_command(s_string):
+            for com in self.command_list:
+                if com['command'] == s_string:
+                    present = True
+        return present
 
     # returns a list of commands translated from an argument-list
     def compile_args(self):
