@@ -92,6 +92,20 @@ class File_Controller():
         except Exception as err:
             self.error_log.append('as I tried to recreate ' + self.true_path + ' ' + str(err))
         return succes
+
+    def multiple_line_writer(self, lines):
+        succes = False
+        try:
+            with open(self.true_path, 'w+', encoding="utf8") as f_file:
+                f_file.writelines(lines)
+                succes = True
+        except PermissionError:
+            self.error_log.append('You do not have sufficent permission to write to ' + self.true_path)
+        except IOError:
+            self.error_log.append('Cannot create ' + self.true_path)
+        except Exception as err:
+            self.error_log.append('as I tried to recreate ' + self.true_path + ' ' + str(err))
+        return succes
     
     def get_errors(self):
         return self.error_log
