@@ -1,0 +1,25 @@
+body{
+    margin: 0;
+    padding: 0;
+    border: 0;
+    box-sizing: border-box;
+    display: inline-block;
+    width: 100%;
+}
+.top_panel{
+    width: 100%;
+    height: 20%;
+    /* min-height: 60px; */
+    background-color: black;
+}
+.mid_panel{
+    display: inline-flex;
+    height: 80%;
+    background-color: blue;
+}
+.left_side{
+    float: left;
+}
+.right_side{
+    float: right;
+}
