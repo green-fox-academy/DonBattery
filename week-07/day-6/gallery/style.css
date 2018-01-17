@@ -34,21 +34,21 @@ footer {
     white-space: nowrap;
 }
 
-.topFrame{
+.topFrame {
     display: grid;
     grid-template-columns: 15% 70% 15%;
     width: 95%;
+    height: 50vh;
 }
-
+ 
 .mainImage {
     background-color: brown;
     justify-self: center;
     width: 95%;
-    height: 40%;
-}
-.mainImage img {
     height: auto;
+    object-fit: contain;
 }
+
 .image {
     display: inline-flex;
 }

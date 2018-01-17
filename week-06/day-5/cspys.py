@@ -8,7 +8,7 @@ from filecontroller import File_Controller
 import os.path 
 from random import randint
 
-screen_size = screen_width, screen_height = 8, 8
+screen_size = screen_width, screen_height = 5, 8
 
 class Box_array(object):
     def __init__(self, size):
@@ -81,7 +81,7 @@ class Cspys(object):
             self.css_data.append(new_row)
         self.css_file.multiple_line_writer(self.css_data)
 
-app = Cspys(screen_size, "demo", "Cascading Style PythonS")
+app = Cspys(screen_size, "sajt", "Cascading Style PythonS")
 
 app.generate_html_data()
 

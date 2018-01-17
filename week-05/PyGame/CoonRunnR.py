@@ -27,10 +27,12 @@ class Coon_game(object):
 
         self.controls1 = [K_UP, K_DOWN, K_LEFT, K_RIGHT]
         self.player1 = CharactR.Player(self.grafx_dir, "rocky01.png", self.controls1)
-
+        self.player1.boost = 2
+        
         self.controls2 = [K_w, K_s, K_a, K_d]
         self.player2 = CharactR.Player(self.grafx_dir, "rocky02.png", self.controls2)
         self.all_player = [self.player1, self.player2]
+        self.player2.boost = 4
         # Set the mouse to invish
         pygame.mouse.set_visible(0)
 
@@ -38,10 +40,12 @@ class Coon_game(object):
         if mode == 'F':
             map = MappR.Map(self.lvl_dir, file, mode = 'F')
             SoundBlastR.play_music(os.path.join(self.soundfx_dir, map.info[3]))
-        for player in player_list:
-            other_player_list = player_list
-            other_player_list.remove(player)
-            player.spawn(map, other_player_list)
+#        for player in player_list:
+#            other_player_list = player_list
+#            other_player_list.remove(player)
+#            player.spawn(map, other_player_list)
+
+
         return map
 
     def move_all(self, unitlist, collider, tick):
@@ -53,7 +57,7 @@ class Coon_game(object):
     def main(self):
         # Load a map
         # Right now this only can work with a map-file (mode = F), later random-map can be added
-        game_map = self.init_map(self.all_player, 'F', 'Popcorn.lvl') 
+        game_map = self.init_map(self.all_player, 'F', 'test_level.lvl') 
         # This generates the graphics of the map (background and wall-sprites)
         self.root.init_level(game_map)
         # This will check the collosions during the game
@@ -62,6 +66,10 @@ class Coon_game(object):
         game_on = True
 
         # Attention travellers! Mainloop ahead!
+        self.player1.x_pos = 110
+        self.player1.y_pos = 80
+        self.player2.x_pos = 80
+        self.player2.y_pos = 120
         while game_on:
 
             self.clock.tick(self.FPS) # Regulate the gamespeed to the given frame per secound
