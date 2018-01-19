@@ -1,0 +1,22 @@
+body {
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+    box-sizing: border-box;
+    min-height: 300px;
+    background-color: black;
+}
+
+.container {
+    min-height: 50%;
+    width: 50%;
+    background-color: rgb(58, 4, 44);
+    color: aqua;
+    left: 25%;
+    margin-top: 10px;
+}
+
+.profilPic {
+    height: 150px;
+    width: auto;
+}

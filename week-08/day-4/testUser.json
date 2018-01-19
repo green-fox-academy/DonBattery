@@ -1,0 +1,8 @@
+userData = [{
+    "userID" : 1,
+    "password" : "a köszfény az nem arany",
+    "name" : "Red Kapitány",
+    "profilPic" : "https://i.pinimg.com/736x/da/48/af/da48af9c5eb25f9340b689ffc0b2e61f--pirate-movies-renaissance-pirate.jpg",
+    "permission" : "user",
+    "postcount" : 1
+}]

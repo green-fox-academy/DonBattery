@@ -1,0 +1,10 @@
+postData = [{
+    "postID" : 1,
+    "point" : 7,
+    "author" : 1,
+    "title" : "Burry me with my money",
+    "URL" : "http://burymewithmymoney.com/",
+    "text" : "an old classic from Capcom's Sunset Riders",
+    "timestamp" : 0,
+    "comment_counter" : 0
+}]
