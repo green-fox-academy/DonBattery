@@ -1,0 +1,14 @@
+body {
+    height: 600px;
+    width: 100%;
+    border: 0px;
+    margin: 0px;
+    padding: 0px;
+}
+
+.posts {
+    height: 300px;
+    width: 300px;
+    background-color: aquamarine;
+    overflow-y: scroll;
+}
