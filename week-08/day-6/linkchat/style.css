@@ -1,0 +1,36 @@
+body {
+    background-color: black;
+    border: 0px;
+    margin: 0px;
+    padding: 0px;
+    display: block;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+#wrapper {
+    min-height: 600px;
+}
+
+#head {
+    min-height: 50px; 
+    width: 100%;
+    background-color: rgb(223, 29, 207);
+    font-size: 24px;
+    color: blue;
+}
+
+#content {
+    min-height: 500px;
+    width: 90%;
+    color: blueviolet;
+    background-color: rgb(219, 22, 22);
+    font-size: 16px;
+}
+
+#foot {   
+    min-height: 50px; 
+    width: 100%;
+    background-color: rgb(131, 206, 108);
+    color: rgb(10, 2, 34);
+    font-size: 14px;
+}
