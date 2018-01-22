@@ -3,7 +3,7 @@
 #  Hi wanderer, this __ is
 #        _______    /°_>-<  Tiny Python Server
 #    ___/ _____ \__/ /
-#   <____/     \____/          a simple HTTP server by Miki - version 0.1
+#   <____/     \____/          a pocket HTTP server by Miki - version 0.1
 
 import http.server
 import socketserver
