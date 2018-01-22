@@ -1,0 +1,183 @@
+html, body {
+    height : 100%;
+    min-height: 100%; 
+}
+
+body {
+    background-color: black;
+    border: 0px;
+    margin: 0px;
+    padding: 0px;
+    font-family: 'Teko', sans-serif;
+    box-sizing: border-box;
+    display: block;
+}
+
+#wrapper {
+    min-height: 600px;
+    width: 100%;
+}
+
+#head {
+    background-color: rgb(10, 38, 88);
+}
+
+#welcome {
+    color: rgb(224, 211, 21);
+    white-space: nowrap; 
+    padding-left: 10px;
+    font-size: 2.5rem;
+}
+
+#content {
+    background-color: rgb(3, 34, 54);
+    color: rgb(160, 229, 169);
+    min-height: 500px;
+    font-size: 1.5rem;
+}
+
+#foot {
+    background-color: rgb(10, 38, 88);
+    color: rgb(140, 212, 235);
+    white-space: nowrap;
+    font-family: 'Rajdhani', sans-serif;
+    min-height: 50px; 
+    font-size: 0.75rem;
+}
+
+#TPS_signature {
+    padding-top: 5px;
+    padding-left: 10px;
+    text-align: left;
+}
+
+#donbattery {
+    padding-right: 5px;
+    text-align: right;
+}
+
+#content > div:first-child {
+    padding-top: 0.5rem;
+}
+
+.post {
+    display: inline-block;
+    font-family: 'Share Tech';
+    font-size: 1rem;
+    margin-left: 0.5rem;
+    width: 100%;
+    border-bottom: 1px solid rgb(118, 156, 126);
+}
+
+.point_box {
+    display: inline-block;
+    width: 2rem;
+    vertical-align: top;
+    padding-top: 0.5rem;
+    text-align: center;
+}
+
+.arrow_button {
+    font-size: 1.5rem;
+}
+
+.avatar_box {
+    display: inline-block;
+    height: 5.5rem;
+    width: 5.5rem;
+}
+
+
+.avatar_pic {
+    height: 5.5rem;
+    width: 5.5rem;
+}
+
+.post_box {
+    display: inline-block; 
+    vertical-align: top;
+    white-space: nowrap;
+    font-size: 0.6rem;
+    padding-top: 0.2rem;  
+}
+
+.username {
+    color: rgb(231, 221, 78);
+    font-size: 1rem;
+}
+.link_box {
+    font-size: 1rem;
+}
+
+.post_text {
+    padding-top: 0.1rem;
+    font-size: 0.8rem;
+}
+.comment_box {  
+    font-size: 0.7rem;
+    vertical-align: bottom;
+    width: 100%;
+}
+
+.comment_counter {
+    display: inline-block;    
+    width: 15%;
+}
+
+.comment_author {
+    display: inline-block;    
+    width: 20%;
+}
+
+.comment_text {
+    display: inline-block;    
+    width: 74%;
+}
+
+/* unvisited link */
+a:link {
+    color: rgb(105, 238, 238);
+}
+
+/* visited link */
+a:visited {
+    color: rgb(20, 111, 153);
+}
+
+/* mouse over link */
+a:hover {
+    color: rgb(70, 197, 58);
+}
+
+/* selected link */
+a:active {
+    color: rgb(193, 230, 178);
+}
+
+/* Small media pseudo selectors */
+
+@media screen and (max-width: 480px) {
+
+    html{
+        font-size: 0.75rem;
+    }
+
+    .avatar_box {
+        display: none;
+    }
+
+    .point_box {
+        padding-top: 0.1rem;
+    }
+
+}
+
+
+/* Large media pseudo selectors  */
+
+@media screen and (min-width: 900px) {
+
+    html{
+        font-size: 1.5rem;
+    }
+}
