@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>JSON-R</title>
+        
+    <style>
+        body {
+        margin: 0px;
+        padding: 0px;
+        border: 0px;
+        box-sizing: border-box;
+        min-height: 300px;
+        background-color: black;
+    }
+
+    .container {
+        min-height: 50%;
+        width: 50%;
+        background-color: rgb(58, 4, 44);
+        color: aqua;
+        left: 25%;
+        margin-top: 10px;
+    }
+
+    .profilPic {
+        height: 150px;
+        width: auto;
+    }
+
+    </style>
+
+</head>
+<body>
+
+
+    <div class = "container" ID = "testComment"></div>
+    <div class = "container" ID = "testPost"></div>
+    <div class = "container" ID = "testUser"></div>
+
+    <script>
+
+    posts = [{
+        "postID" : 1,
+        "point" : 7,
+        "author" : 1,
+        "title" : "Burry me with my money",
+        "URL" : "http://burymewithmymoney.com/",
+        "text" : "an old classic from Capcom's Sunset Riders",
+        "timestamp" : 0,
+        "comment_counter" : 0
+    }]
+
+    comments = [{
+    "commentID" : 1,
+    "reference" : 0,
+    "author" : 1,
+    "text" : "FIRST LOL XD!!!!4444!!4",
+    "timestamp" : 0
+    }]
+
+    users = [{
+    "userID" : 1,
+    "password" : "a köszfény az nem arany",
+    "name" : "Red Kapitány",
+    "profilPic" : "https://i.pinimg.com/736x/da/48/af/da48af9c5eb25f9340b689ffc0b2e61f--pirate-movies-renaissance-pirate.jpg",
+    "permission" : "user",
+    "postcount" : 1
+    }]
+
+   class User {
+    
+    constructor(userData) {
+        this.userID = userData.userID;
+        this.password = userData.password;
+        this.name = userData.name;
+        this.profilPic = userData.profilPic;
+        this.permission = userData.permission;
+        this.postcount = 0;
+    }
+    
+    render(element) {        
+        let userDiv = document.createElement('div');
+        userDiv.className = "userDiv"
+        userDiv.innerHTML += '<img class="profilPic" src="' + this.profilPic + '">' + " Username :" + this.name + " Permission:" + this.permission + " postcount:" + this.postcount;
+        element.appendChild(userDiv);
+        }
+        
+}
+
+class Post {
+
+    constructor(postData) {
+        this.postID = postData.postID;
+        this.point = postData.point;
+        this.author = postData.author;
+        this.title = postData.title;
+        this.URL = postData.URL;
+        this.text = postData.text;
+        this.timestamp = Date.now();
+        this.comment_counter = 0;
+    }
+    
+    render(element) {        
+        let postDiv = document.createElement('div');
+        postDiv.className = "postDiv"
+        postDiv.innerHTML += '<a class="postLink" href="' + this.URL + '">' + this.title + "</a>" 
+        + '<div class="postText">' + "Time :" + this.timestamp + " ID :" +this.postID + " by:" + this.author + " points :" + this.point + " comments:" + this.comment_counter + " text:" + this.text; 
+        element.appendChild(postDiv);
+        }
+
+}
+
+class Comment {
+
+    constructor(commentData) {
+        this.commentID = commentData["commentID"];
+        this.reference = commentData["reference"];
+        this.author = commentData["author"];
+        this.text = commentData["text"];
+        this.timestamp = Date.now();
+        }
+
+        render(element) {        
+        let commentDiv = document.createElement('div');
+        commentDiv.className = "commentDiv"
+        commentDiv.innerHTML += "Time :" + this.timestamp + " ID :" +this.commentID + " by:" + this.author + " refers to :" + this.reference + " comment:" + this.text;
+        element.appendChild(commentDiv);
+        }
+
+        }
+
+        let testPost = new Post(posts[0]);
+        let testComment = new Comment(comments[0]);
+        let testUser = new User(users[0]);
+
+        let testCommentDiv = document.getElementById('testComment');
+        let testPostDiv = document.getElementById('testPost');
+        let testUserDiv = document.getElementById('testUser')
+
+        testPost.render(testPostDiv);
+        testComment.render(testCommentDiv);
+        testUser.render(testUserDiv);
+
+    </script>
+
+</body>
+</html>

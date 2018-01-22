@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 
-#  Hi wanderer, this__is
-#       _______    /°_>-<  Tiny Python Server
-#   ___/ _____ \__/ /
-#  <____/     \____/          a simple HTTP server by Miki - version 0.1
+#  Hi wanderer, this __ is
+#        _______    /°_>-<  Tiny Python Server
+#    ___/ _____ \__/ /
+#   <____/     \____/          a simple HTTP server by Miki - version 0.1
 
 import http.server
 import socketserver
