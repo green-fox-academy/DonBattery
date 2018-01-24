@@ -2,13 +2,13 @@
 
 #  Hi wanderer, this __ is
 #        _______    /°_>-<  Tiny Python Server
-#    ___/ _____ \__/ /
-#   <____/     \____/          a simple HTTP server by Miki - version 0.1
+#    ___/ _____ \__/ /         a pocket HTTP server
+#   <____/     \____/              by Miki & Youtube - version 0.1
 
 import http.server
 import socketserver
 
-PORT = 1337
+PORT = 4321
 
 Handler = http.server.SimpleHTTPRequestHandler
 httpd = socketserver.TCPServer(('', PORT), Handler)
