@@ -2,15 +2,15 @@
 
 let MyPath = "http://localhost:1212";
 
-var users = [];
+let MyPath = apiURL;
 
-var posts = [];
-
-var comments = [];
 
 class MightyJSON {
     
     constructor() {
+        this.posts = [];        
+        this.comments = [];
+        this.users = [];
         this.loadAll();
     }
     
@@ -31,9 +31,9 @@ class MightyJSON {
     }
 
     loadAll() {
-        users = this.loadData('/data/users.json');
-        posts = this.loadData('/data/posts.json');
-        comments = this.loadData('/data/comments.json');
+        this.users = this.loadData('/data/users.json');
+        this.posts = this.loadData('/data/posts.json');
+        this.comments = this.loadData('/data/comments.json');
     }
     
     renderPosts(targetElement) {
@@ -43,10 +43,12 @@ class MightyJSON {
             let postAuthor = users[this.getUserIndexByID(element['author'])];
             
             let postDiv = document.createElement('div');
-
             
             postDiv.className = "post";
             postDiv.id = 'post' + element['postID'];
+
+
+
             
             let pointBox = document.createElement('div');
             pointBox.className = "point_box";
@@ -128,8 +130,8 @@ let testP = document.createElement('p');
 testP.innerHTML = "TESTING!";
 contentBox.appendChild(testP);
 
-console.log('Users : ', users)
-console.log('Posts : ', posts)
-console.log('Comments : ', comments)
+console.log('Users : ', this.users)
+console.log('Posts : ', this.posts)
+console.log('Comments : ', this.comments)
 
 jsonController.renderPosts(contentBox);
