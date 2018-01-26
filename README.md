@@ -81,4 +81,23 @@ or right with mouse-click or the arrow buttons.
 
 [<img src="https://github.com/greenfox-academy/DonBattery/blob/master/week-07/day-4/screenshot.png">](https://github.com/greenfox-academy/DonBattery/tree/master/week-07/day-4)
 
+----------------------------------------------------------------------------------------------------------------------------------------
 
+
+### Link Chat
+
+On the 8th and 9th week we have learned about APIs and servers, and how to communicate
+with them. We even created our tiny JavaScript server running on Node.js which was
+a really cool excersize. This helped a lot in understanding the relations between frontend,
+backend and databases.
+
+This forum has a webpage-frontend where users can post URLs and short titles, while others
+can upvote / downvote or comment these posts.
+
+My project is still on. The webpage is moderatly responsive, so it can be displayed on desktop
+and mobile devices rather well. However the database querys still nedds to be implemented
+(right now it only loads the test server's data). I'm planning to hook it up with more databases 
+(the test server, my server and another one by Fabrizio (from the Please class) which is still in the makeing)
+
+
+[<img src="https://i.imgur.com/SI5Xlp0.png">](https://github.com/greenfox-academy/DonBattery/tree/master/week-08/day-6/linkchat)
