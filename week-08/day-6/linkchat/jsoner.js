@@ -1,137 +1,99 @@
 "use strict";
 
-let MyPath = "http://localhost:1212";
+const myURL = "http://localhost:1337";
+const testURL = "http://secure-reddit.herokuapp.com/simple";
+const LeviURL = "https://time-radish.glitch.me/posts";
 
-let MyPath = apiURL;
+let users = [];
+let posts = [];
+let comments = [];
 
-
-class MightyJSON {
-    
-    constructor() {
-        this.posts = [];        
-        this.comments = [];
-        this.users = [];
-        this.loadAll();
+users = [
+    {
+        'name' : 'Sanya'
     }
-    
-    loadData(URL) {
-        let data = [];
-        let MyRequester = new XMLHttpRequest();
-        MyRequester.open("GET", MyPath + URL);
-        MyRequester.setRequestHeader("Content-Type", "application/json");
-        MyRequester.setRequestHeader("Accept", "application/json");
-        MyRequester.send();
-        MyRequester.onload = function () {            
-            data = JSON.parse(MyRequester.response);
-            console.log('Response :', MyRequester.response);
-            console.log('Response Tesxt :', MyRequester.responseText);
-            console.log('Data :', data);
-        };
-        return data;    
-    }
-
-    loadAll() {
-        this.users = this.loadData('/data/users.json');
-        this.posts = this.loadData('/data/posts.json');
-        this.comments = this.loadData('/data/comments.json');
-    }
-    
-    renderPosts(targetElement) {
-
-        posts.forEach(element => {
-
-            let postAuthor = users[this.getUserIndexByID(element['author'])];
-            
-            let postDiv = document.createElement('div');
-            
-            postDiv.className = "post";
-            postDiv.id = 'post' + element['postID'];
-
-
-
-            
-            let pointBox = document.createElement('div');
-            pointBox.className = "point_box";
-            
-            let upvoteButton = document.createElement('div');
-            upvoteButton.className = "upvote_button arrow_button";
-            
-            let pointCounter = document.createElement('div');
-            pointCounter.className = "point_counter";
-            
-            let downvoteButton = document.createElement('div');
-            downvoteButton.className = "downvote_button arrow_button";
-            
-            pointBox.appendChild(upvoteButton);
-            pointBox.appendChild(pointCounter);
-            pointBox.appendChild(downvoteButton);
-            
-            postDiv.appendChild(pointBox);
-            
-            let avatarBox = document.createElement('div');           
-            avatarBox.className = "avatar_box";
-            avatarBox.innerHTML = '<img class="profilPic" src="' + postAuthor['profilPic'] + '">'
-            
-            postDiv.appendChild(avatarBox);
-            
-            let postBox = document.createElement('div');
-            postBox.className = "post_box";
-            
-            let userName = document.createElement('div');
-            userName.className = "username";
-            userName.innerHTML = postAuthor['name'];
-            
-            let linkBox = document.createElement('div');
-            linkBox.className = "link_box";
-            linkBox.innerHTML = '<a href ="' + element['URL'] + '"</a>';
-            
-            let postText = document.createElement('div');
-            postText.className = "post_text";
-            postText.innerHTML = element['text'];
-            
-            postBox.appendChild(userName);
-            postBox.appendChild(linkBox);
-            postBox.appendChild(postText);
-            
-            postDiv.appendChild(postBox);
-            
-            let commentBox = document.createElement('div');     
-            
-            let commentCounter = document.createElement('div');           
-            let commentAuthor = document.createElement('div');           
-            let commentText = document.createElement('div');
-            
-            commentBox.appendChild(commentCounter);
-            commentBox.appendChild(commentAuthor);
-            commentBox.appendChild(commentText);
-            
-            postDiv.appendChild(commentBox);
-            
-            targetElement.appendChild(postDiv);
-        });      
-    }
-
-    getUserIndexByID(index) {
-        for (let i = 0; i < users.length; i++) {
-            if (users[i]['userID'] == index) {
-                return i;
-            }
-        }
-        return -1;
-    } 
-
-}
-
-let jsonController = new MightyJSON();
+];
 
 let contentBox = document.getElementById("content");
 
-let testP = document.createElement('p');
-testP.innerHTML = "TESTING!";
-contentBox.appendChild(testP);
+function getUserIndexByID(index) {
+    for (let i = 0; i < users.length; i++) {
+        if (users[i]['userID'] == index) {
+            return i;
+        }
+    }
+    return -1;
+} 
 
-console.log('Users : ', this.users)
-console.log('Posts : ', this.posts)
-console.log('Comments : ', this.comments)
+function loadData(URL) {
+    let data = [];
+    let MyRequester = new XMLHttpRequest();
+    MyRequester.open("GET", URL);
+    MyRequester.setRequestHeader("Content-Type", "application/json");
+    MyRequester.setRequestHeader("Accept", "application/json");
+    MyRequester.send();
+    MyRequester.onload = function () {            
+        posts = JSON.parse(MyRequester.responseText).posts;
+        console.log(posts);
+        posts.forEach(post => renderPost(users[getUserIndexByID(post['author'])], post, contentBox))
+    }   
+}
 
-jsonController.renderPosts(contentBox);
+function loadAll(URL) {
+    // this.users = this.loadData('/data/users.json');
+    loadData(URL);
+    // this.comments = this.loadData('/data/comments.json');
+}
+   
+function timeStampToDate(stamp) {
+    return new Date(stamp).toGMTString();
+}
+      
+function getPostURL(post) {
+    let postUrl = "http://burymewithmymoney.com/"    
+    if ("url" in post){
+        postUrl = post["url"];
+    } else if ("href" in post) {
+        postUrl = post["href"];
+    }
+}
+      
+function renderPost(user, post, htmlElement) {
+    let newPost = document.createElement('div');
+    newPost.id = "postID" + post['id'];
+    newPost.classList = "post"
+    newPost.innerHTML = `                 
+        <div class = "point_box">
+            <div class = "upvote_button arrow_button">▲</div>
+            <div class = "point_counter">${post['score']}</div>
+            <div class = "downvote_button arrow_button">▼</div>
+        </div>  
+        <div class = "avatar_box">
+            <img class = "avatar_pic" src = "https://pbs.twimg.com/profile_images/824716853989744640/8Fcd0bji.jpg" alt = "profil_pic">
+        </div>  
+        <div class = "post_box">        
+            <div class = "username">by: ${user['name']} on: ${timeStampToDate(post['timestamp'])}</div>
+            <div class = "link_box">
+                <a href = >${getPostURL(post)}</a>
+            </div>        
+        <div class = "post_text">
+            ${post['title']}
+        </div>        
+        <div class = "comment_box">
+            <div class = "comment_counter"></div>
+            <div class = "comment_author"></div>
+            <div class = "comment_text"></div>
+        </div>`
+    htmlElement.appendChild(newPost);
+}
+
+loadAll(LeviURL);
+
+setTimeout(logger, 1000);
+
+function logger() {
+    console.log('Users : ', users)
+    console.log('Posts : ', posts)
+    console.log('Comments : ', comments)
+}
+    

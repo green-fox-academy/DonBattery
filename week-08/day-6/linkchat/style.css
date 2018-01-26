@@ -96,7 +96,7 @@ body {
 .post_box {
     display: inline-block; 
     vertical-align: top;
-    white-space: nowrap;
+    white-space: wrap;
     font-size: 0.6rem;
     padding-top: 0.2rem;  
 }

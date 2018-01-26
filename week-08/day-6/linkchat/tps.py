@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+﻿#!/usr/bin/env python
 
 #  Hi wanderer, this __ is
 #        _______    /°_>-<  Tiny Python Server
@@ -8,7 +8,7 @@
 import http.server
 import socketserver
 
-PORT = 4321
+PORT = 1337
 
 Handler = http.server.SimpleHTTPRequestHandler
 httpd = socketserver.TCPServer(('', PORT), Handler)
