@@ -1,0 +1,14 @@
+html, body {
+  display: block;
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+  border: 0px;
+  padding: 0px;
+  margin: 0px;
+}
+
+body {
+  background-color: black;
+  color: greenyellow;
+}

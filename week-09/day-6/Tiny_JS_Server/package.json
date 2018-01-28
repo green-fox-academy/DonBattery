@@ -1,0 +1,30 @@
+{
+  "name": "tiny_js_server",
+  "version": "0.0.1",
+  "description": "this is a tiny JavaScript server :)",
+  "main": "tjs.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DonBattery/Tiny_JS_Server.git"
+  },
+  "keywords": [
+    "Tiny",
+    "JS",
+    "JavaScript",
+    "Server"
+  ],
+  "author": "Miki",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DonBattery/Tiny_JS_Server/issues"
+  },
+  "homepage": "https://github.com/DonBattery/Tiny_JS_Server#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "nodemon": "^1.14.11"
+  }
+}
