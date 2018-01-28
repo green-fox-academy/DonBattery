@@ -41,26 +41,8 @@ app.use(function (req, res, next) {
     next();
   });
 
-// Root endpoint. Load mainpage from BaseURL / -> index.html 
-app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/page/index.html');
-});
-
-// As we do not host static library (jet) we need each file relating to frontend hosted individually
-// Load ffavicon
-app.get('/favicon.ico', (req, res) => {
-  res.sendFile(__dirname + '/page/favicon.ico');
-});
-
-// Load mainpage stylesheet
-app.get('/style.css', (req, res) => {
-  res.sendFile(__dirname + '/page/style.css');
-});
-
-// Load page JS code
-app.get('/page.js', (req, res) => {
-  res.sendFile(__dirname + '/page/page.js');
-});
+// experimental static host of page directory as root
+app.use(express.static('page'))
 
 // Experimental part testing Login roght now
 app.post('/login', urlPraser, function (req, res) {

@@ -1,32 +1,118 @@
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <meta charset = "UTF-8">
+    <meta name = "viewport" content = "width=device-width, initial-scale=1.0">
+    <meta http-equiv = "X-UA-Compatible" content = "ie=edge">
 
-  <!-- OK THIS is not good, I have to come up with somehthing dinamic ! but it works on localhost now enforcing the refresh of favicon -->
-  <link rel="icon" href="http://localhost:6969/favicon.ico?v=2" />
+    <link href = "https://fonts.googleapis.com/css?family=Rajdhani|Teko|Share+Tech" rel = "stylesheet">
+    
+    <link rel = "stylesheet" href = "assets/style.css">
 
-  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"> 
+    <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
 
-  <link rel="stylesheet" href="style.css">
-  <title>Test Page</title>
+    <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon"> 
+
+    <title>LinkChat</title>
+
 </head>
+
 <body>
-  <div id = "wrapper">
-    <div id = "info_panel">
+
+    <div id = "wrapper">
+
+        <div id = "head">
+
+            <div id = "welcome">Welcome to LinkChat</div>
+
+        </div>
+
+        <div id = "content">
+
+            <div class = "post" id = "post0000">
+
+                <div class = "point_box">
+                    <div class = "upvote_button arrow_button">▲</div>
+                    <div class = "point_counter">125</div>
+                    <div class = "downvote_button arrow_button">▼</div>
+                </div>
+
+                <div class = "avatar_box">
+                    <img class = "avatar_pic" src = "https://avatarfiles.alphacoders.com/110/thumb-110498.png" alt = "profil_pic">
+                </div>
+
+                <div class = "post_box">
+
+                    <div class = "username">Goku</div>
+                    
+                    <div class = "link_box">
+                        <a href = "http://burymewithmymoney.com/">http://burymewithmymoney.com/</a>
+                    </div>
+                    
+                    <div class = "post_text">
+                        How the japanese imagined the Wild West. Conami: Sunset Riders 1991
+                    </div>
+                    
+                    <div class = "comment_box">
+                        <div class = "comment_counter">13</div>
+                        <div class = "comment_author">Dr.Bubó</div>
+                        <div class = "comment_text">Wow maaaaaan</div>
+                    </div>
+                    
+                </div>
+                
+            </div>
+            
+            <div class = "post" id = "post0001">
+                
+                <div class = "point_box">
+                    <div class = "upvote_button arrow_button">▲</div>
+                    <div class = "point_counter">43</div>
+                    <div class = "downvote_button arrow_button">▼</div>
+                </div>
+                
+                <div class = "avatar_box">
+                    <img class = "avatar_pic" src = "https://myanimelist.cdn-dena.com/s/common/uploaded_files/1484283131-6b209d576ec4bfecb4349b15604a56a9.jpeg" alt = "profil_pic">
+                </div>
+                
+                <div class = "post_box">
+                    
+                    <div class = "username">Saitu</div>
+
+                    <div class = "link_box">
+                        <a href = "https://github.com/greenfox-academy/DonBattery">https://github.com/greenfox-academy/DonBattery</a>
+                    </div>
+                    
+                    <div class = "post_text">
+                        Wisit my GreenFox repo plox bla fds fds fd sf ds g b sb a gdfdsfdsa fdsfdsfdsf fdsfsdsfds fdsfdsfds
+                    </div>
+                    
+                    <div class = "comment_box">
+                        <div class = "comment_counter">7</div>
+                        <div class = "comment_author">Putin</div>
+                        <div class = "comment_text">Shure man!</div>
+                    </div>
+                    
+                </div>
+
+            </div>
+
+        </div>
+
+        <div id = "foot">
+
+            <div id = "TPS_signature">powered by: Tiny JS Server</div>
+            <div id = "donbattery"><a href="http://github.com/greenfox-academy/DonBattery">Visit my GIT</a></div>
+
+        </div>
+
     </div>
-    <div id = "buttonz">
-      <label for="username_field">Username</label>
-      <input type="text" id = "username_field">
-      <label for="password_field">Password</label>
-      <input type="password" name="sanyi" id="password_field">
-      <button id="login_button">Login</button>
-    </div>
-  </div>
-  <script src="page.js"></script>
+
+    <script src = "assets/main.js"></script>
+
 </body>
+
 </html>
