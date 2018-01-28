@@ -15,7 +15,7 @@ class ToolBox {
     let min = date.getMinutes();
     let sec = date.getSeconds();
   
-    return `${year}.${month}.${day} at: ${hour}:${min}:${sec}`;
+    return `${year}.${month}.${day} ${hour}:${min}:${sec}`;
   }
   
   getIPaddress(inputString) {

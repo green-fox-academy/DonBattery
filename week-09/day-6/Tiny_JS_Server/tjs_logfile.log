@@ -1,0 +1,15 @@
+[33m[nodemon] 1.14.11[39m
+[33m[nodemon] to restart at any time, enter `rs`[39m
+[33m[nodemon] watching: *.*[39m
+[32m[nodemon] starting `node tjs.js`[39m
+[31m[nodemon] app crashed - waiting for file changes before starting...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node tjs.js`[39m
+
+Tiny JS server listening on PORT : 6969
+
+Time : 2018.1.28 at: 21:59:18 Error connecting to database [object Undefined]
+Time : 2018.1.28 at: 21:59:37 GET / request from IP: localhost
+Time : 2018.1.28 at: 21:59:37 GET /assets/style.css request from IP: localhost
+Time : 2018.1.28 at: 21:59:37 GET /assets/main.js request from IP: localhost
+Terminate batch job (Y/N)? Terminate batch job (Y/N)? 
