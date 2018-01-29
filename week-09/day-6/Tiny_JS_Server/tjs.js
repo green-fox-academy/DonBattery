@@ -3,19 +3,19 @@
 //  . o O Tiny JavaScript Server running on Node.js Nodemon O o .
 
 // MySQL is our database 
-const mysql = require('mysql');
+const mysql = require("mysql");
 
 // Express will be our web-framework 
-const express = require('express');
+const express = require("express");
 
 // Dunno if this needed anymore ??? express also can parse JSON
-const bodyParser = require('body-parser');
+const bodyParser = require("body-parser");
 
 // Miki tools 
-const Tools = require('./tools.js');
+const Tools = require("./tools.js");
 
 // This is the PORT Tyiny JS Server will listen to, so localhost:PORT will be the / (root) on our computer. 
-// Other clients on the network can reach the same root as <this computer's IP:PORT> 192.168.0.17:6969 for example
+// Other clients on the network can reach the same root as <this computer"s IP:PORT> 192.168.0.17:6969 for example
 const PORT = 6969
 
 // Summon the Express framework
@@ -42,21 +42,19 @@ function connectDatabase () {
 // Init the tatabase to linkchat and return the connection object
 function initDB() {
   let conn = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'pass123',
-    database: 'linkchat'
+    host: "localhost",
+    user: "root",
+    password: "pass123",
+    database: "linkchat"
   });
-  console.log(conn);
   return conn
 };
 
 // callback function for later error-log and apropirate response to client
-function dbError (err) {
+function dbError (err, res) {
   if(err) {
     serverLog(`Database Error ${err.toString()}`);
-    res.status(500).send('Database Error');
-    return;
+    res.status(500).send("Database Error");
   }
 };
 // end of SQL things
@@ -77,7 +75,7 @@ function logIP(reqIP, message = "general") {
 app.use(express.json());
 
 // This needs to determine incoming IP adresses (the "trust" keyword indicates this may be not the best solution regarding security)
-app.enable('trust proxy');
+app.enable("trust proxy");
 
 // First midleware will log the request info onto the terminal (this needs to be extended with more data, and appended into a log-file)
 app.use(function (req, res, next) {
@@ -86,21 +84,31 @@ app.use(function (req, res, next) {
 });
 
 // experimental static host of page directory as root
-app.use(express.static('page'))
+app.use(express.static("page"))
+
+// return the posts from database ordered by points
+app.get("/posts", (req, res) => {
+  dbCon.query('SELECT * FROM posts ORDER BY points DESC;', (err, rows) => { err ? dbError(err, res) : res.json({'posts': rows})});
+});
+
+// return the users from database minus the passwords
+app.get("/users", (req, res) => {
+  dbCon.query('SELECT USER_ID, username, profil_pic FROM users;', (err, rows) => { err ? dbError(err, res) : res.json({'posts': rows})});
+});
 
 // Experimental part testing Login roght now
-app.post('/login', urlPraser, function (req, res) {
-  console.log('Base URL :', req.baseUrl);
-  console.log('Request Body :', req.body);
-  if (!'username' in req.body) {
+app.post("/login", urlPraser, function (req, res) {
+  console.log("Base URL :", req.baseUrl);
+  console.log("Request Body :", req.body);
+  if (!"username" in req.body) {
     return res.status(400).send("username missing");
   } else {
-    res.send('welcome, ' + req.body.username);
+    res.send("welcome, " + req.body.username);
   }
 });
 
 // All other (incorrect) request will fall to this pit resulting a 404 error (maybe a funny picture ?)
-app.get('/*', (req, res) => {
+app.get("/*", (req, res) => {
   res.status(404);
   res.json(`Wrong way! 🐸`);  
 });
