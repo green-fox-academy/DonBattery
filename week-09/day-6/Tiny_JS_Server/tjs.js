@@ -15,7 +15,7 @@ const bodyParser = require("body-parser");
 const Tools = require("./tools.js");
 
 // This is the PORT Tyiny JS Server will listen to, so localhost:PORT will be the / (root) on our computer. 
-// Other clients on the network can reach the same root as <this computer"s IP:PORT> 192.168.0.17:6969 for example
+// Other clients on the network can reach the same root as <this computer's IP:PORT> 192.168.0.17:6969 for example
 const PORT = 6969
 
 // Summon the Express framework
@@ -93,7 +93,7 @@ app.get("/posts", (req, res) => {
 
 // return the users from database minus the passwords
 app.get("/users", (req, res) => {
-  dbCon.query('SELECT USER_ID, username, profil_pic FROM users;', (err, rows) => { err ? dbError(err, res) : res.json({'posts': rows})});
+  dbCon.query('SELECT USER_ID, username, profile_pic FROM users;', (err, rows) => { err ? dbError(err, res) : res.json({'users': rows})});
 });
 
 // Experimental part testing Login roght now

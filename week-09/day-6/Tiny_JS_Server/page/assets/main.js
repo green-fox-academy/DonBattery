@@ -26,18 +26,18 @@ function generalRequest(method = "GET", URL = rootURL, query = "", parameters = 
     MyRequester.setRequestHeader("Accept", "application/json");
   }
   MyRequester.send(JSON.stringify(body));  
-  MyRequester.onload = onloadFunction(JSON.parse(MyRequester.responseText)); // <= HALP!
+  MyRequester.onload = function () {onloadFunction(JSON.parse(MyRequester.responseText))};
 }
 
 // This function will launch HTTP requests in order to refresh user and post data
 function loadAll(URL) {
-  generalRequest("GET", URL + "/posts", "", [], "", "JSON", {}, (parsed) => {posts = parsed});   
-  generalRequest("GET", URL + "/users", "", [], "", "JSON", {}, (parsed) => {users = parsed});   
+  generalRequest("GET", URL + "/posts", "", [], "", "JSON", {}, (parsed) => {posts = parsed.posts});   
+  generalRequest("GET", URL + "/users", "", [], "", "JSON", {}, (parsed) => {users = parsed.users});   
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // These short functions will help to construct the posts on the page
-// If the user has no profile pic URL present, he/she will get the Guy Fawkes mask
+// If the user has no profile-pic-URL present, he/she will get the Guy Fawkes mask
 function getProfilePic(URL){    
   if (URL === undefined || URL.length < 3) {
     URL = "https://pbs.twimg.com/profile_images/824716853989744640/8Fcd0bji.jpg";
@@ -49,7 +49,7 @@ function timeStampToDate(timeStamp) {
   return new Date(timeStamp).toGMTString();
 }
 // This is a very important function! This will render each post to the content-div!
-function renderPosts(user, post, htmlElement) {
+function renderPost(user, post, htmlElement) {
   let newPost = document.createElement("div");
   newPost.id = "POST_ID" + post["POST_ID"];
   newPost.classList = "post";
@@ -60,17 +60,21 @@ function renderPosts(user, post, htmlElement) {
   <div class = "downvote_button arrow_button">▼</div>
   </div>  
   <div class = "avatar_box">
-  <img class = "avatar_pic" src = ${getProfilePic(user["profil_pic"])} alt = "profil_pic">
+  <img class = "avatar_pic" src = ${getProfilePic(user["profile_pic"])} alt = "profil_pic">
   </div>  
   <div class = "post_box">        
   <div class = "username">by: ${user["username"]} on: ${timeStampToDate(post["timestamp"])}</div>
   <div class = "link_box">
-  <a href = >${post["url"]}</a>
+  <a href = ${post["url"]}>${post["url"]}</a>
   </div>        
   <div class = "post_text">
   ${post["title"]}
   </div>`;
   htmlElement.appendChild(newPost);
+}
+
+function renderPosts() {
+  posts.forEach((post) => {renderPost(users.find(function (user) {return user["USER_ID"] === post["USER_ID"]} ), post, contentBox ); console.log(post);} );
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -78,10 +82,10 @@ function renderPosts(user, post, htmlElement) {
 loadAll(rootURL);
 
 // Render posts
-renderPosts();
+
 
 // a little test (can be removed later)
-setTimeout(logger, 1000);
+setTimeout(renderPosts, 1000);
 
 function logger() {
   console.log("Users : ", users);
