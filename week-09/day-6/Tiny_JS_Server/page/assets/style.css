@@ -31,18 +31,33 @@ body {
 }
 
 #nav_bar {
-    display: block;
+    display: inline-block;
     position: fixed;
-    top: 0.5rem;
-    right: 0.5rem;
+    top: 3px;
+    right: 7px;
     font-size: 3rem;
-    width: 5.5rem;
     background-color: rgb(29, 29, 121);
     color: rgb(255, 230, 90);
     border: 2px solid rgb(99, 185, 185);
     border-radius: 5px;
-    text-align: center;
+    vertical-align: top;
+    height: 3.4rem;
 }
+
+#login_button, #post_button {
+    position: relative;
+    top: -0.4rem;
+    display: inline-block;
+}
+
+#login_button:hover {
+    color: rgb(38, 255, 0);
+}
+
+#post_button:hover {
+    color: rgb(38, 255, 0);
+}
+
 
 #content {
     background-color: rgb(3, 34, 54);
@@ -76,7 +91,9 @@ body {
 }
 
 .post {
-    display: inline-block;
+    overflow-x: hidden;
+    display: block;
+    white-space: nowrap;
     font-family: 'Share Tech';
     font-size: 1rem;
     margin-left: 0.5rem;
@@ -96,6 +113,14 @@ body {
     font-size: 1.5rem;
 }
 
+.upvote_button:hover {
+    color: rgb(0, 255, 0);
+}
+
+.downvote_button:hover {
+    color: rgb(255, 0, 0);
+}
+
 .avatar_box {
     display: inline-block;
     height: 5.5rem;
@@ -112,7 +137,7 @@ body {
     user-select: text;
     display: inline-block; 
     vertical-align: top;
-    white-space: wrap;
+    white-space: normal;
     font-size: 0.6rem;
     padding-top: 0.2rem;  
 }
@@ -169,30 +194,61 @@ a:hover {
 a:active {
     color: rgb(193, 230, 178);
 }
+/* ------------------------------------------------------------------------------- */
+#post_dialog {
+    display: block;
+    align-items: center;
+    position: fixed;
+    z-index: 100;
+    left: 2%;
+    top: 2%;
+    right: 2%;
+    background-color: rgb(10, 58, 73);
+    color: aqua;
+    font-size: 2rem;
+}
 
+#user_box {
+    display: flex;
+    width: 100;
+}
+
+#user_box_title {
+    vertical-align: middle;
+    display: inline-block;
+}
+#user_box_avatar {
+    display: inline-block;
+}
+#user_box_username {
+    vertical-align: middle;
+    display: inline-block;
+}
+
+/* ------------------------------------------------------------------------------- */
 /* Small media pseudo selectors */
 
 @media screen and (max-width: 480px) {
-
+    
     html{
         font-size: 0.75rem;
     }
-
+    
     .avatar_box {
         display: none;
     }
-
+    
     .point_box {
         padding-top: 0.1rem;
     }
-
+    
 }
 
 
 /* Large media pseudo selectors  */
 
 @media screen and (min-width: 900px) {
-
+    
     html{
         font-size: 1.5rem;
     }

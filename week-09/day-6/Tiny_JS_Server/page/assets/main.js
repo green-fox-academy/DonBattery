@@ -77,9 +77,40 @@ function renderPosts() {
   posts.forEach((post) => {renderPost(users.find(function (user) {return user["USER_ID"] === post["USER_ID"]} ), post, contentBox ); } );
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function openPostForm() {
+  let wrappper = getElementById("wrapper");
+  let postDialog = document.createElement("div");
+  postDialog.id = "post_dialog";
+  // postDialog.classList = "";
+  postDialog.innerHTML = `                 
+  <div class = "point_box">
+  <div class = "upvote_button arrow_button">▲</div>
+  <div class = "point_counter">${post["points"]}</div>
+  <div class = "downvote_button arrow_button">▼</div>
+  </div>  
+  <div class = "avatar_box">
+  <img class = "avatar_pic" src = ${getProfilePic(user["profile_pic"])} alt = "profil_pic">
+  </div>  
+  <div class = "post_box">        
+  <div class = "username">by: ${user["username"]} on: ${timeStampToDate(post["timestamp"])}</div>
+  <div class = "link_box">
+  <a href = ${post["url"]}>${post["url"]}</a>
+  </div>        
+  <div class = "post_text">
+  ${post["title"]}
+  </div>`;
+  wrapper.appendChild(postDialog);  
+}
 
+function initEvents() {
+  let postButton = getElementById("post_button");
+  postButton.addEventListener('click', openPostForm, false);
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Init data
 loadAll(rootURL);
+
+// initEvents();
 
 // a little test (can be removed later)
 setTimeout(renderPosts, 500);
