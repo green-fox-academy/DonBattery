@@ -2,4 +2,5 @@
 
 const myURL = "http://localhost:420";
 
-console.log("u wot m8");
+console.log("page loaded");
+

@@ -9,7 +9,35 @@
 </head>
 <body>
   <div id = "wrapper">
-    YO!
+    <div id = "searchBox">
+      
+      <form action = "localhost:420/search" method = "get" id = "searchForm"><label for = "searchForm">Licence Plate Search</label>
+        
+        <input type = "text" id = "inputText" name = "inputText"><br>
+
+        <label for = "all">
+          <i>All licences</i>
+          <input type = "radio" name = "licenceType" id = "all" value = "all">
+        </label>
+        <label for = "police">
+          <i>Police licences</i>
+          <input type = "radio" name = "licenceType" id = "police" value = "police">
+        </label>
+        <label for = "diplomat">
+          <i>Diplomat licences</i>
+          <input type = "radio" name = "licenceType" id = "diplomat" value = "diplomat">
+        </label>
+
+        <button type = "reset" id = "resetButton" class = "button">Reset Form</button>
+
+        <button type = "submit" id = "searchButton" class = "button">Search</button>
+
+      </form>
+
+    </div>
+    <div id = "result_box">
+
+    </div>
   </div>
   <script src="index.js"></script>
 </body>
