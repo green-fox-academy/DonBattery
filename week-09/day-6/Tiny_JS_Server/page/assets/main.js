@@ -74,20 +74,12 @@ function renderPost(user, post, htmlElement) {
 }
 
 function renderPosts() {
-  posts.forEach((post) => {renderPost(users.find(function (user) {return user["USER_ID"] === post["USER_ID"]} ), post, contentBox ); console.log(post);} );
+  posts.forEach((post) => {renderPost(users.find(function (user) {return user["USER_ID"] === post["USER_ID"]} ), post, contentBox ); } );
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Init data
 loadAll(rootURL);
 
-// Render posts
-
-
 // a little test (can be removed later)
-setTimeout(renderPosts, 1000);
-
-function logger() {
-  console.log("Users : ", users);
-  console.log("Posts : ", posts);
-}
+setTimeout(renderPosts, 500);

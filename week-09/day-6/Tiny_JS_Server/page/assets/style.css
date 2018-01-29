@@ -16,6 +16,7 @@ body {
 #wrapper {
     min-height: 600px;
     width: 100%;
+    user-select: none;
 }
 
 #head {
@@ -27,6 +28,20 @@ body {
     white-space: nowrap; 
     padding-left: 10px;
     font-size: 2.5rem;
+}
+
+#nav_bar {
+    display: block;
+    position: fixed;
+    top: 0.5rem;
+    right: 0.5rem;
+    font-size: 3rem;
+    width: 5.5rem;
+    background-color: rgb(29, 29, 121);
+    color: rgb(255, 230, 90);
+    border: 2px solid rgb(99, 185, 185);
+    border-radius: 5px;
+    text-align: center;
 }
 
 #content {
@@ -94,6 +109,7 @@ body {
 }
 
 .post_box {
+    user-select: text;
     display: inline-block; 
     vertical-align: top;
     white-space: wrap;
