@@ -29,17 +29,36 @@ function getChecked(radios) {
   return -1;
 }
 
-function searchDB(query) {
+function renderRow(row) {
+  let resultBox = document.getElementById('resultBox');
+  resultBox.innerHTML += `
+  <tr>
+    <td>${row.plate}</td>
+    <td>${row.car_brand}</td> 
+    <td name = "carModel">${row.car_model}</td>
+    <td>${row.color}</td>
+    <td>${row.year}</td>
+  </tr>
+  `;
+}
+
+function renderResult(rows) {
+  console.log(rows);
+  resetResultBox();
+  rows.forEach(row => {renderRow(row)});
+}
+
+function searchDB() {
   let inputText = document.getElementById('inputText');
   let radios = document.getElementsByName('licenceType');
   let checkedRadio = getChecked(radios);
-  console.log(checkedRadio);
-
-    //  THIS NEED TO BE EXTENDED 
-  // generalRequest("GET", myURL + "/search", {}, {}, {}, "JSON", {}, (parsed) => {users = parsed.users}); 
+  generalRequest("GET", myURL + "/search", {"inputText" : inputText.value, "licenceType" : checkedRadio}, {}, {}, "JSON", {}, renderResult);
 }
 
 function generalRequest(method = "GET", URL = rootURL, query = {}, parameters = {}, fragment = {}, header = {}, body = {}, onloadFunction = function () {}) {
+  if (Object.keys(query).length != 0) {
+    URL += `?${Object.keys(query).map(key => key + '=' + encodeURIComponent(query[key])).join('&')}`;
+  }
   console.log(`\nGeneral request sent with method: ${method} \nURL: ${URL} \nquery: ${query} \nparameters: ${parameters} \nfragment: ${fragment} \nheader: ${header} \nbody: ${body}`);
   let MyRequester = new XMLHttpRequest();
   MyRequester.open(method, URL);

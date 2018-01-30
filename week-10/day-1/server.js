@@ -44,7 +44,8 @@ app.use(function (req, res, next) {
 app.use(Express.static("page"))
 
 app.get("/search", (req, res) => {
-  dbCon.query('SELECT * FROM licence_plates;', (err, rows) => { err ? dbError(err, res) : res.json(rows)});
+  console.log("Query :", req.query);
+  dbCon.query(`SELECT * FROM licence_plates WHERE plate LIKE '%${req.query.inputText}%';`, (err, rows) => { err ? dbError(err, res) : res.json(rows)});
 });
 
 app.get("/*", (req, res) => {
