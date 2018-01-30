@@ -1,0 +1,15 @@
+{
+  "name": "node_noise",
+  "version": "1.0.0",
+  "description": "a small music player",
+  "main": "music_server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Miki",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.2",
+    "mysql": "^2.15.0"
+  }
+}
