@@ -15,7 +15,7 @@ function connectDatabase () {
     }
     console.log("Succesfully connected to database");
   });
-};
+}
 
 function initDB() {
   let conn = mySQL.createConnection({
@@ -25,14 +25,14 @@ function initDB() {
     database: "cars"
   });
   return conn;
-};
+}
 
 function dbError (err, res) {
   if(err) {
     console.log(`Database Error ${err.toString()}`);
     res.status(500).send("Database Error");
   }
-};
+}
 
 function validQuery(query) {
   if (Object.keys(query).length === 0) {
@@ -60,7 +60,6 @@ app.use(Express.static("page"));
 app.get("/search", (req, res) => {
   let sqlQuery = "";
   if (validQuery(req.query)) {
-    console.log(req.query.licenceType);
     if (req.query.licenceType === "all") {sqlQuery = `SELECT * FROM licence_plates WHERE plate LIKE '%${req.query.inputText}%';`};
     if (req.query.licenceType === "police") {sqlQuery = `SELECT * FROM licence_plates WHERE plate LIKE '%${req.query.inputText}%' AND plate LIKE 'RB%';`};
     if (req.query.licenceType === "diplomat") {sqlQuery = `SELECT * FROM licence_plates WHERE plate LIKE '%${req.query.inputText}%' AND plate LIKE 'DT%';`};

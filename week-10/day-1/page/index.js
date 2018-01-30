@@ -2,17 +2,14 @@
 
 const myURL = "http://localhost:420";
 
-console.log("page loaded");
-
-displayMessage("Search by Licence plate pattern ABC-123 or fragment of pattern", false);
+displayMessage("Search by Licence plate pattern ABC-123 or fragment of pattern");
 
 let searchButton = document.getElementById("searchButton");
 let resetButton = document.getElementById("resetButton");
 let searchForm = document.getElementById("searchForm");
 
 searchButton.addEventListener("click", searchDB);
-
-searchButton.addEventListener("click", resetForm);
+resetButton.addEventListener("click", resetForm);
 
 function displayMessage(text, error = false) {
   let messageBox = document.getElementById('message');
@@ -35,7 +32,7 @@ function resetResultBox() {
 function resetForm() {
   searchForm.reset();
   resetResultBox();
-  displayMessage("Search by Licence plate pattern ABC-123 or fragment of pattern", false);  
+  displayMessage("Search by Licence plate pattern ABC-123 or fragment of pattern");  
 }
 
 function renderRow(row) {
@@ -56,7 +53,7 @@ function renderResult(rows) {
   if (rows.hasOwnProperty("Error")) {
     displayMessage("Wrong query", true);
   } else if (rows.length === 0) {
-    displayMessage("No match for your query", false);
+    displayMessage("No match for your query");
   } else {
     resetResultBox();
     rows.forEach(row => {renderRow(row)});
@@ -77,14 +74,12 @@ function searchDB() {
   let radios = document.getElementsByName('licenceType');
   let checkedRadio = getChecked(radios);
   generalRequest("GET", myURL + "/search", {"inputText" : inputText.value, "licenceType" : checkedRadio}, {}, {}, "JSON", {}, renderResult);
-}
-  
+}  
   
 function generalRequest(method = "GET", URL = rootURL, query = {}, parameters = {}, fragment = {}, header = {}, body = {}, onloadFunction = function () {}) {
   if (Object.keys(query).length != 0) {
     URL += `?${Object.keys(query).map(key => key + '=' + encodeURIComponent(query[key])).join('&')}`;
   }
-  // console.log(`\nGeneral request sent with method: ${method} \nURL: ${URL} \nquery: ${query} \nparameters: ${parameters} \nfragment: ${fragment} \nheader: ${header} \nbody: ${body}`);
   let MyRequester = new XMLHttpRequest();
   MyRequester.open(method, URL);
   if (header === "JSON") {
