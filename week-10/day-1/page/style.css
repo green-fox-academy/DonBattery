@@ -22,7 +22,6 @@ html, body {
 }
 
 #message {
-  color: white;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 0.8rem;
   padding-left: 5.1%;
@@ -42,4 +41,12 @@ table, th, td {
 
 .button {
   font-size: 1rem;
+}
+
+.errorMessage {
+  color: red;
+}
+
+.normalMessage {
+  color: white;
 }

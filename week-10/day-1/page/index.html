@@ -17,7 +17,7 @@
 
         <label for = "all">
           <i>All licences</i>
-          <input type = "radio" name = "licenceType" id = "all" value = "all">
+          <input type = "radio" name = "licenceType" id = "all" value = "all" checked="checked">
         </label>
         <label for = "police">
           <i>Police licences</i>
@@ -28,14 +28,16 @@
           <input type = "radio" name = "licenceType" id = "diplomat" value = "diplomat">
         </label>
 
-        <button type = "reset" id = "resetButton" class = "button">Reset Form</button>
+        <button type = "button" id = "resetButton" class = "button">Reset Form</button>
 
         <button type = "button" id = "searchButton" class = "button">Search</button>
 
       </form>
 
     </div>
-    <div id = "message">Search by Licence plate pattern ABC-123 or fragment of pattern</div>
+
+    <div id = "message" class = "normalMessage"></div>
+
     <table id = "resultBox">
       <tr>
         <th>Plate</th>

@@ -34,6 +34,20 @@ function dbError (err, res) {
   }
 };
 
+function validQuery(query) {
+  if (Object.keys(query).length === 0) {
+    return false;
+  } else if (!query.hasOwnProperty("inputText")) {
+    return false;
+  } else if (query.inputText.length > 7) {
+    return false;
+  } else if (!query.inputText.match(/^[0-9a-zA-Z\-]+$/)) {
+    return false;
+  } else {
+    return true;
+  }
+}
+
 app.use(Express.json());
 
 app.use(function (req, res, next) {
@@ -41,11 +55,19 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.use(Express.static("page"))
+app.use(Express.static("page"));
 
 app.get("/search", (req, res) => {
-  console.log("Query :", req.query);
-  dbCon.query(`SELECT * FROM licence_plates WHERE plate LIKE '%${req.query.inputText}%';`, (err, rows) => { err ? dbError(err, res) : res.json(rows)});
+  let sqlQuery = "";
+  if (validQuery(req.query)) {
+    console.log(req.query.licenceType);
+    if (req.query.licenceType === "all") {sqlQuery = `SELECT * FROM licence_plates WHERE plate LIKE '%${req.query.inputText}%';`};
+    if (req.query.licenceType === "police") {sqlQuery = `SELECT * FROM licence_plates WHERE plate LIKE '%${req.query.inputText}%' AND plate LIKE 'RB%';`};
+    if (req.query.licenceType === "diplomat") {sqlQuery = `SELECT * FROM licence_plates WHERE plate LIKE '%${req.query.inputText}%' AND plate LIKE 'DT%';`};
+    dbCon.query(sqlQuery, (err, rows) => { err ? dbError(err, res) : res.json(rows)});
+  } else {
+    res.json({"Error" : "Wrong Query"});
+  }
 });
 
 app.get("/*", (req, res) => {
