@@ -1,0 +1,11 @@
+html, body {
+padding: 0px;
+border: 0px;
+margin: 0px;
+box-sizing: border-box;
+background-color:black;
+}
+
+h1 {
+  color: rgb(0, 255, 13);
+}
