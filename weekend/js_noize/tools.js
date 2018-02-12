@@ -39,6 +39,22 @@ function getIPaddress(inputString) {
   return temp;
 }
 
+function initDB(mySql, host_, user_, pass, db) {
+  const conn = mySql.createConnection({
+    host: host_,
+    user: user_,
+    password: pass,
+    database: db,
+  });
+  return conn;
+}
+
+function askDB(dbCon, query, onLoad = () => {}, onError = () => {}) {
+  dbCon.query(query, (err, rows) => {
+    if (err) { onError(err); } else { onLoad(rows); }
+  });
+}
+
 module.exports = {
-  isNumeric, formatDate, serverLog, getIPaddress,
+  isNumeric, formatDate, serverLog, getIPaddress, initDB, askDB,
 };
