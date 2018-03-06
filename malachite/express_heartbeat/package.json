@@ -1,0 +1,28 @@
+{
+  "name": "node.js_heartbeat",
+  "version": "0.0.1",
+  "description": "implementing heartbeat endpoint to Express app, to check database connectivity",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "heartbeat",
+    "Express",
+    "database",
+    "server",
+    "backend",
+    "endpoint"
+  ],
+  "author": "Malachite",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.2",
+    "mysql": "^2.15.0"
+  },
+  "devDependencies": {
+    "eslint": "^4.18.2",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.9.0"
+  }
+}
