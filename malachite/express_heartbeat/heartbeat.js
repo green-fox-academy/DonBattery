@@ -1,7 +1,4 @@
-/* eslint linebreak-style: ['error', 'windows'] */
-
 const mySql = require('mysql');
-
 const dbConfig = require('./config');
 
 function endpoint(req, res, next) {
@@ -11,7 +8,7 @@ function endpoint(req, res, next) {
       if (err) {
         res.status(500).send(err);
       } else {
-        res.json({ heartbeat: 'beep' });
+        res.json({ status: 'OK' });
       }
     });
   } else {

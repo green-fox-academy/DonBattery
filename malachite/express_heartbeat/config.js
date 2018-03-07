@@ -1,11 +1,9 @@
-/* eslint linebreak-style: ['error', 'windows'] */
-
 const dbConn = {
-  host: 'localhost',
-  port: 3306,
-  user: 'root',
-  password: 'pass123',
-  database: 'heartbeat',
+  host: process.env.RDS_HOSTNAME,
+  port: process.env.RDS_PORT,
+  user: process.env.RDS_USER,
+  password: process.env.RDS_PASSWORD,
+  database: process.env.RDS_DATABASE,
 };
 
 module.exports = {
