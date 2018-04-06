@@ -1,4 +1,4 @@
-## Hello and welcome to Miklós Lőrinzi's GreenFox repository
+## Hello and welcome to Miklós Lőrinczi's GreenFox repository
 
 
 Here you will find my humble projects I have worked on during the Corsac-cohor at
